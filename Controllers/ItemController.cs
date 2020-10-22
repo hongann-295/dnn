@@ -109,7 +109,7 @@ namespace Christoc.Modules.Chart.Controllers
             return View(employee);
         }
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult GetEmployee(string employeeId)
         {
 
@@ -124,6 +124,23 @@ namespace Christoc.Modules.Chart.Controllers
                 throw e;
             }
            
+        }
+
+        [HttpGet]
+        public JsonResult DeleteEmployee(string Id)
+        {
+
+            try
+            {
+                var delEm = ItemManager.Instance.DeleteEmployee(int.Parse(Id));
+                return Json(new { data = JsonConvert.SerializeObject(delEm, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
     }
 }

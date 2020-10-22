@@ -5,6 +5,7 @@
     Layout = null;
 }
 
+
 <body>
     <div>
         <a href="javascript:void(0);" onclick="employee.openAddEmployee()" class="btn btn-success">Add Employee</a>
@@ -29,8 +30,8 @@
                         <td>@employee.Name</td>
                         <td>@employee.Gender</td>
                         <td>
-                            <a href="javascript:void(0);" onclick="employee.get()" class="dropdown-item">Edit</a>
-                            <a class="dropdown-item" href="javascript:void(0);"><i class="dw dw-delete-3"></i> Delete</a>
+                            <a href="javascript:void(0);" onclick="employee.get(@employee.Id)" class="dropdown-item">Edit</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="employee.delete(@employee.Id)"> Delete</a>
                         </td>
                     </tr>
                 }
@@ -85,15 +86,77 @@
                     </div>
 
                     <!-- Modal body -->
-                    <div class="modal-body">
-                        <div>
-                            <label>Name:</label>
-                            <input type="text" class="form-control" id="Name" name="FullName">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" id="Name" name="FullName">
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label>Gender:</label>
-                            <input type="text" class="form-control" id="Gender" name="Gender">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Gender:</label>
+                                    @*<input type="text" class="form-control" id="Gender" name="Gender">*@
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="radio" value="1" id="Male" name="customRadio" class="custom-control-input">
+                                            <label>Male</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" value="0" id="Female" name="customRadio" class="custom-control-input">
+                                            <label>Female</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" value="0" id="Other" name="customRadio" class="custom-control-input">
+                                            <label>Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
+                        @*<div>
+                                <label>Name:</label>
+                                <input type="text" class="form-control" id="Name" name="FullName">
+                            </div>*@
+                        @*<div>
+                                <label>Gender:</label>
+                                <input type="text" class="form-control" id="Gender" name="Gender">
+                            </div>*@
+                        @*<div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label weight-400" for="customRadio4">Male</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label weight-400" for="customRadio4">Female</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label weight-400" for="customRadio4">Other</label>
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*<div class="form-group">
+                                <label>Gender :</label>
+                                <div class="d-flex">
+                                    <div class="custom-control custom-radio mb-5 mr-20">
+                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label weight-400" for="customRadio4">Male</label>
+                                    </div>
+                                    <div class="custom-control custom-radio mb-5">
+                                        <input type="radio" value="0" id="customRadio5" name="customRadio" class="custom-control-input">
+                                        <label class="custom-control-label weight-400" for="customRadio5">Female</label>
+                                    </div>
+                                </div>
+                            </div>*@
                     </div>
 
                     <!-- Modal footer -->
@@ -108,4 +171,15 @@
     </div>
 </body>
 
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="~/desktopmodules/mvc/Chart/scripts/bootbox.min.js"></script>
+<script src="~/desktopmodules/mvc/Chart/scripts/bootbox.locales.min.js"></script>
 <script src="~/desktopmodules/mvc/Chart/scripts/employee.js"></script>

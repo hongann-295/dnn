@@ -33,7 +33,7 @@ namespace Christoc.Modules.Chart.Components
         //void UpdateEmployee(Employee employee);
         Employee GetEmployee(int employeeId);
         IEnumerable<Employee> GetEmployees();
-        //void DeleteEmployee(int Id);
+        DeleteResult DeleteEmployee(int Id);
     }
 
     class ItemManager : ServiceLocator<IItemManager, ItemManager>, IItemManager
@@ -112,6 +112,7 @@ namespace Christoc.Modules.Chart.Components
             using (IDataContext ctx = DataContext.Instance())
             {
                 ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
+                //ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2 {0}", new object[] {employee.Id, employee.Name, employee.Gender } ));
             }
 
         }
@@ -135,14 +136,14 @@ namespace Christoc.Modules.Chart.Components
 
         }
 
-        //public void DeleteEmployee(int Id)
-        //{
-        //    using (IDataContext ctx = DataContext.Instance())
-        //    {
-        //        var t = GetItem(itemId, moduleId);
-        //        DeleteItem(t);
-        //        ctx.ExecuteScalar<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_DeleteEmployee"));
-        //    }
-        //}
+        public DeleteResult DeleteEmployee(int Id)
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                IEnumerable<DeleteResult> y = ctx.ExecuteQuery<DeleteResult>(System.Data.CommandType.StoredProcedure, String.Format("Sp_DeleteEmployee {0}", Id));
+                return y.FirstOrDefault();
+                //ctx.ExecuteScalar<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_DeleteEmployee {0}", Id));
+            }
+        }
     }
 }

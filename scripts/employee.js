@@ -59,9 +59,9 @@ employee.get = function (id) {
     var siteRoot = dnn.getVar("sf_siteRoot", "/");
     $.ajax({
         url: siteRoot + 'DesktopModules/MVC/Chart/Item/GetEmployee',
-        method: "Post",
+        method: "GET",
         dataType: "json",
-        data: { employeeId: 5 },
+        data: { employeeId: id },
         headers: {
             "ModuleId": ModuleId,
             "TabId": TabId,
@@ -74,36 +74,70 @@ employee.get = function (id) {
             //$('.desEmployee #Name').html(obj.Name);
             $('.desEmployee #Name').val(obj.Name);
             // $('#desEmployee').find('#Id').text(id);
-            $('.desEmployee #Gender').val(obj.Gender);
+            //$('.desEmployee #Gender').val(obj.Gender);
+
+            //if ($('.desEmployee #Gender').val(obj.Gender) == "Female") {
+            //    $('#customRadio4').prop('checked', true);
+
+            //}
+            //else {
+            //    $('#customRadio5').prop('checked', true);
+            //}
+
+            switch ($('.desEmployee #Gender').val(obj.Gender)) {
+                case $('.desEmployee #Gender').val(obj.Gender) == "Female":
+                    $('#customRadio4').prop('checked', true);
+                    break;
+                case $('.desEmployee #Gender').val(obj.Gender) == "Male":
+                    $('#customRadio5').prop('checked', true);
+                    break;
+                case $('.desEmployee #Gender').val(obj.Gender) == "Other":
+                    $('#customRadio6').prop('checked', true);
+                    break;
+            }
+
+
             $('#DetailEmployee').modal('show');
         }
     });
 }
 
 
-//employee.delete = function (id) {
-//    bootbox.confirm({
-//        title: "Delete employee?",
-//        message: "Do you want to delete this employee.",
-//        buttons: {
-//            cancel: {
-//                label: '<i class="fa fa-times"></i> No'
-//            },
-//            confirm: {
-//                label: '<i class="fa fa-check"></i> Yes'
-//            }
-//        },
-//        callback: function (result) {
-//            if (result) {
-//                $.ajax({
-//                    url: siteRoot + 'DesktopModules/MVC/Chart/Item/GetEmployee',
-//                    method: "GET",
-//                    dataType: "json",
-//                    success: function (data) {
-//                        bootbox.alert(data.result.message);
-//                    }
-//                });
-//            }
-//        }
-//    });
-//}
+employee.delete = function (id) {
+    //alert(id);
+    var rvtoken = $("input[name='__RequestVerificationToken']").val();
+    var ModuleId = $('#ModuleId').val();
+    var TabId = $('#TabId').val();
+    var siteRoot = dnn.getVar("sf_siteRoot", "/");
+    bootbox.confirm({
+        title: "Delete employee?",
+        message: "Do you want to delete this employee.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> No'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Yes'
+            }
+        },
+        callback: function (data) {
+            if (data) {
+                $.ajax({
+                    url: siteRoot + 'DesktopModules/MVC/Chart/Item/DeleteEmployee',
+                    method: "GET",
+                    dataType: "json",
+                    data: { Id: id },
+                    headers: {
+                        "ModuleId": ModuleId,
+                        "TabId": TabId,
+                        "RequestVerificationToken": rvtoken
+                    },
+                    success: function (data) {
+                        //alert(data.data);
+                        bootbox.alert(data.data.message);
+                    }
+                });
+            }
+        }
+    });
+}
