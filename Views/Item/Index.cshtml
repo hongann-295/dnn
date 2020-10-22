@@ -1,0 +1,271 @@
+﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Christoc.Modules.Chart.Models.Item>>
+ 
+@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Mvc.Helpers
+@using Christoc.Modules.Chart.Models
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />*@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-3.3.2.min.css" rel="stylesheet" />
+<link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<script src="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.js"></script>
+@*<script src="~/desktopmodules/mvc/Chart/scripts/employee.js"></script>*@
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>*@
+@*<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>*@
+
+<figure class="highcharts-figure">
+    <div>
+        <a href="javascript:void(0);" onclick="employee.openAddEmployee()" class="btn btn-success">Add Employee</a>
+
+    </div>
+    <div class="container">
+        <div></div>
+        <table class="table table-striped" id="tbEmployee">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var employee in Model)
+                {
+                    <tr>
+                        <td class="table-plus">@employee.Id</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.Gender</td>
+
+                    </tr>
+                }*@
+            </tbody>
+        </table>
+    </div>
+    @*<div>
+            <label for="select">This is selected mutiple checkbox</label>
+            <select multiple id="select">
+                <option class="custom-checkbox" value="C++">C++</option>
+                <option class="custom-checkbox" value="C#">C#</option>
+                <option class="custom-checkbox" value="Java">Java</option>
+                <option class="custom-checkbox" value="Objective-C">Objective-C</option>
+                <option class="custom-checkbox" value="JavaScript">JavaScript</option>
+                <option class="custom-checkbox" value="Perl">Perl</option>
+                <option class="custom-checkbox" value="PHP">PHP</option>
+                <option class="custom-checkbox" value="Ruby on Rails">Ruby on Rails</option>
+                <option class="custom-checkbox" value="Android">Android</option>
+                <option class="custom-checkbox" value="iOS">iOS</option>
+                <option class="custom-checkbox" value="HTML">HTML</option>
+                <option class="custom-checkbox" value="XML">XML</option>
+                <option class="custom-checkbox" value="C++">C++</option>
+                <option class="custom-checkbox" value="C#">C#</option>
+                <option class="custom-checkbox" value="Java">Java</option>
+                <option class="custom-checkbox" value="Objective-C">Objective-C</option>
+                <option class="custom-checkbox" value="JavaScript">JavaScript</option>
+                <option class="custom-checkbox" value="Perl">Perl</option>
+                <option class="custom-checkbox" value="PHP">PHP</option>
+                <option class="custom-checkbox" value="Ruby on Rails">Ruby on Rails</option>
+                <option class="custom-checkbox" value="Android">Android</option>
+                <option class="custom-checkbox" value="iOS">iOS</option>
+                <option class="custom-checkbox" value="HTML">HTML</option>
+                <option class="custom-checkbox" value="XML">XML</option>
+            </select>
+        </div>*@
+    <div id="container"></div>
+</figure>
+<div class="modal" id="addEmployee">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input hidden id="Id" />
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
+                    <label>Name:</label>
+                    <input type="text" class="form-control" id="Name" name="FullName">
+                </div>
+                <div>
+                    <label>Gender:</label>
+                    <input type="text" class="form-control" id="Gender" name="Gender">
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="employee.save()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //$(document).ready(function () {
+    //    $('#select').multiselect({
+    //        includeSelectAllOption: true,
+    //        nonSelectedText: '--Chọn--',
+    //        buttonWidth: 350,
+    //        enableFiltering: true
+    //    });
+    //    //$(".js-example-basic-multiple").select2({
+    //    //    maximumSelectionLength: 2
+    //    //});
+
+    //    //var last_valid_selection = null;
+    //    //$('#select').change(function (event) {
+    //    //    if ($(this).val().length > 2) {
+    //    //        alert('You can only choose 2!');
+    //    //        $(this).val(last_valid_selection);
+    //    //    } else {
+    //    //        last_valid_selection = $(this).val();
+    //    //    }
+    //    //});
+    //});
+    //var verified = [];
+    //document.querySelector('select').onchange = function (e) {
+    //    if (this.querySelectorAll('option:checked').length <= 5) {
+    //        verified = Array.apply(null, this.querySelectorAll('option:checked'));
+    //    } else {
+    //        Array.apply(null, this.querySelectorAll('option')).forEach(function (e) {
+    //            e.selected = verified.indexOf(e) > -1;
+    //        });
+    //    }
+    //}
+
+
+
+    @*var chart;
+    $(document).ready(function () {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'column',
+                events: {
+                    load: requestData
+                }
+            },
+            title: {
+                text: 'Demo',
+            },
+            xAxis: {
+                categories: ['Male', 'Female', 'Other']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Amount'
+                }
+            }
+            , plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: []
+        });
+    });
+
+    function requestData() {
+        var rvtoken = $("input[name='__RequestVerificationToken']").val();
+        var ModuleId = @Dnn.ModuleContext.ModuleId;
+        var TabId = @Dnn.ModuleContext.TabId;
+        var siteRoot = dnn.getVar("sf_siteRoot", "/");
+        var chartData;
+        var Genders = [];
+        var Amounts = [];
+        $.ajax({
+            url: siteRoot + 'DesktopModules/MVC/Chart/Item/GetResults',
+            method: "Get",
+            contentType: "application/json; charset=utf-8", dataType: "json",
+            headers: {
+                "ModuleId": ModuleId,
+                "TabId": TabId,
+                "RequestVerificationToken": rvtoken
+            },
+            success: function (data) {
+                chartData = data.data;
+                var obj = JSON.parse(chartData);
+                for (var i = 0; i < obj.length; i++) {
+                    Genders.push(obj[i].Gender);
+                    //alert(obj[i].Gender);
+                    Amounts.push(obj[i].Amount);
+                    //alert(obj[i].Amount);
+                    chart.addSeries({
+                        name: obj[i].Gender,
+                        data: JSON.parse("[" + obj[i].Amount + ",2,3]")
+                    });
+
+
+                }
+               // chart.xAxis[0].setCategories(Genders)
+                console.log(Genders);
+                console.log(Amounts);
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        })
+    }*@
+
+
+    @*var employee = {} || employee;
+    employee.openAddEmployee = function () {
+        $('#addEmployee').modal('show');
+    };
+    employee.save = function () {
+        var rvtoken = $("input[name='__RequestVerificationToken']").val();
+        var ModuleId = @Dnn.ModuleContext.ModuleId;
+        var TabId = @Dnn.ModuleContext.TabId;
+        var siteRoot = dnn.getVar("sf_siteRoot", "/");
+        var saveEmployee = {};
+        saveEmployee.Name = $('#Name').val();
+        saveEmployee.Id = parseInt($('#Id').val());
+        saveEmployee.Gender = $('#Gender').val();
+        //saveEmployee.Gender = $("input[name='customRadio']:checked").val();
+        $.ajax({
+            url: siteRoot + 'DesktopModules/MVC/Chart/Item/SaveEmployee/',
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(saveEmployee),
+            success: function (data) {
+                $('#addEmployee').modal('hide');
+                bootbox.alert(data.result.message);
+            }
+        });
+    }*@
+</script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+@*<script src="~/desktopmodules/mvc/Chart/scripts/employee.js"></script>*@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>*@
