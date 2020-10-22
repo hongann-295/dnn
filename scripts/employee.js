@@ -68,33 +68,28 @@ employee.get = function (id) {
             "RequestVerificationToken": rvtoken
         },
         success: function (data) {
-            //alert(data.data);
             var obj = JSON.parse(data.data);
-            //alert(obj.Name);
-            //$('.desEmployee #Name').html(obj.Name);
             $('.desEmployee #Name').val(obj.Name);
-            // $('#desEmployee').find('#Id').text(id);
-            //$('.desEmployee #Gender').val(obj.Gender);
-
-            //if ($('.desEmployee #Gender').val(obj.Gender) == "Female") {
-            //    $('#customRadio4').prop('checked', true);
-
-            //}
-            //else {
-            //    $('#customRadio5').prop('checked', true);
-            //}
-
-            switch ($('.desEmployee #Gender').val(obj.Gender)) {
-                case $('.desEmployee #Gender').val(obj.Gender) == "Female":
-                    $('#customRadio4').prop('checked', true);
-                    break;
-                case $('.desEmployee #Gender').val(obj.Gender) == "Male":
-                    $('#customRadio5').prop('checked', true);
-                    break;
-                case $('.desEmployee #Gender').val(obj.Gender) == "Other":
-                    $('#customRadio6').prop('checked', true);
-                    break;
+             $('#desEmployee').find('#Id').text(id);
+            $('.desEmployee #Gender').val(obj.Gender);
+            if ($('.desEmployee #Gender').val(obj.Gender) == "Female") {
+                $('#customRadio4').prop('checked', true);
             }
+            else {
+                $('#customRadio5').prop('checked', true);
+            }
+
+            //switch ($('.desEmployee #Gender').val(obj.Gender)) {
+            //    case $('.desEmployee #Gender').val(obj.Gender) == "Female":
+            //        $('#customRadio4').prop('checked', true);
+            //        break;
+            //    case $('.desEmployee #Gender').val(obj.Gender) == "Male":
+            //        $('#customRadio5').prop('checked', true);
+            //        break;
+            //    case $('.desEmployee #Gender').val(obj.Gender) == "Other":
+            //        $('#customRadio6').prop('checked', true);
+            //        break;
+            //}
 
 
             $('#DetailEmployee').modal('show');
@@ -133,7 +128,9 @@ employee.delete = function (id) {
                         "RequestVerificationToken": rvtoken
                     },
                     success: function (data) {
+                        //var obj = JSON.parse(data.data);
                         //alert(data.data);
+                        //alert(obj.message);
                         bootbox.alert(data.data.message);
                     }
                 });

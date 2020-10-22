@@ -112,6 +112,7 @@
     <Compile Include="Components\ItemManager.cs" />
     <Compile Include="Components\RouteConfig.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Models\DeleteResult.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\GetChart.cs" />
     <Compile Include="Models\Item.cs" />
@@ -149,6 +150,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="scripts\bootbox.locales.min.js" />
+    <Content Include="scripts\bootbox.min.js" />
     <Content Include="scripts\bootstrap-3.3.2.min.css" />
     <Content Include="scripts\bootstrap-3.3.2.min.js" />
     <Content Include="scripts\bootstrap-multiselect.css" />
