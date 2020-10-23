@@ -107,16 +107,6 @@ namespace Christoc.Modules.Chart.Components
             
         }
 
-        public void SaveEmployee(Employee employee)
-        {
-            using (IDataContext ctx = DataContext.Instance())
-            {
-                ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
-                //ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2 {0}", new object[] {employee.Id, employee.Name, employee.Gender } ));
-            }
-
-        }
-
         public Employee GetEmployee(int employeeId)
         {
             using (IDataContext ctx = DataContext.Instance())
@@ -143,6 +133,24 @@ namespace Christoc.Modules.Chart.Components
                 IEnumerable<DeleteResult> y = ctx.ExecuteQuery<DeleteResult>(System.Data.CommandType.StoredProcedure, String.Format("Sp_DeleteEmployee {0}", Id));
                 return y.FirstOrDefault();
                 //ctx.ExecuteScalar<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_DeleteEmployee {0}", Id));
+            }
+        }
+
+        //public bool IItemManager.SaveEmployee(Employee employee)
+        //{
+        //    using (IDataContext ctx = DataContext.Instance())
+        //    {
+        //        ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
+        //        return true; //ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2 {0}", new object[] {employee.Id, employee.Name, employee.Gender } ));
+        //    }
+        //}
+
+        public void SaveEmployee(Employee employee)
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                //ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
+                ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2", new object[] {employee.Id, employee.Name, employee.Gender } ));
             }
         }
     }

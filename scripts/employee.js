@@ -29,26 +29,30 @@ employee.openAddEmployee = function () {
 };
 
 
-//employee.save = function () {
-//    var rvtoken = $("input[name='__RequestVerificationToken']").val();
-//    var siteRoot = dnn.getVar("sf_siteRoot", "/");
-//    var saveEmployee = {};
-//    saveEmployee.Name = $('#Name').val();
-//    saveEmployee.Id = parseInt($('#Id').val());
-//    saveEmployee.Gender = $('#Gender').val();
-//    //saveEmployee.Gender = $("input[name='customRadio']:checked").val();
-//    $.ajax({
-//        url: siteRoot + 'DesktopModules/MVC/Chart/Item/SaveEmployee/',
-//        method: "POST",
-//        dataType: "json",
-//        contentType: "application/json",
-//        data: JSON.stringify(saveEmployee),
-//        success: function (data) {
-//            $('#addEmployee').modal('hide');
-//            bootbox.alert(data.result.message);
-//        }
-//    });
-//}
+employee.save = function () {
+    var rvtoken = $("input[name='__RequestVerificationToken']").val();
+    var siteRoot = dnn.getVar("sf_siteRoot", "/");
+    var saveEmployee = {};
+    saveEmployee.Name = $('#Name').val();
+    saveEmployee.Id = parseInt($('#Id').val());
+    saveEmployee.Gender = $('#Gender').val();
+    $.ajax({
+        url: siteRoot + 'DesktopModules/MVC/Chart/Item/SaveEmployee/',
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(saveEmployee),
+        headers: {
+            "ModuleId": ModuleId,
+            "TabId": TabId,
+            "RequestVerificationToken": rvtoken
+        },
+        success: function (data) {
+            $('#addEmployee').modal('hide');
+            bootbox.alert(data.data.message);
+        }
+    });
+}
 
 
 
@@ -72,12 +76,13 @@ employee.get = function (id) {
             $('.desEmployee #Name').val(obj.Name);
              $('#desEmployee').find('#Id').text(id);
             $('.desEmployee #Gender').val(obj.Gender);
-            if ($('.desEmployee #Gender').val(obj.Gender) == "Female") {
-                $('#customRadio4').prop('checked', true);
-            }
-            else {
-                $('#customRadio5').prop('checked', true);
-            }
+
+            //if ($('.desEmployee #Gender').val(obj.Gender) == "Female") {
+            //    $('#customRadio4').prop('checked', true);
+            //}
+            //else {
+            //    $('#customRadio5').prop('checked', true);
+            //}
 
             //switch ($('.desEmployee #Gender').val(obj.Gender)) {
             //    case $('.desEmployee #Gender').val(obj.Gender) == "Female":

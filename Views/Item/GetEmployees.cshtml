@@ -1,5 +1,4 @@
 ﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Christoc.Modules.Chart.Models.Employee>>
-@*@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers*@
 
 @{
     Layout = null;
@@ -59,7 +58,11 @@
                         </div>
                         <div>
                             <label>Gender:</label>
-                            <input type="text" class="form-control" id="Gender" name="Gender">
+                           <select id="Gender" class="form-control">
+                               <option value="1">Male</option>
+                               <option value="2">Female</option>
+                               <option value="3">Other</option>
+                           </select>
                         </div>
                     </div>
 
@@ -101,20 +104,25 @@
                                 <div class="form-group">
                                     <label>Gender:</label>
                                     @*<input type="text" class="form-control" id="Gender" name="Gender">*@
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="radio" value="1" id="Male" name="customRadio" class="custom-control-input">
-                                            <label>Male</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="radio" value="0" id="Female" name="customRadio" class="custom-control-input">
-                                            <label>Female</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="radio" value="0" id="Other" name="customRadio" class="custom-control-input">
-                                            <label>Other</label>
-                                        </div>
-                                    </div>
+                                    @*<div class="row">
+            <div class="col-md-4">
+                <input type="radio" value="1" id="Male" name="customRadio" class="custom-control-input">
+                <label>Male</label>
+            </div>
+            <div class="col-md-4">
+                <input type="radio" value="0" id="Female" name="customRadio" class="custom-control-input">
+                <label>Female</label>
+            </div>
+            <div class="col-md-4">
+                <input type="radio" value="0" id="Other" name="customRadio" class="custom-control-input">
+                <label>Other</label>
+            </div>
+        </div>*@
+                                    <select id="Gender" class="form-control">
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Other</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

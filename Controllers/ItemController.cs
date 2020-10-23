@@ -95,13 +95,12 @@ namespace Christoc.Modules.Chart.Controllers
             
         }
 
-        //[HttpPost]
-        //public JsonResult Save(Employee employee)
-        //{
-        //    var list = ItemManager.Instance.SaveEmployee(employee);
-        //    return Json(new { data = JsonConvert.SerializeObject(list, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-
-        //}
+        [HttpPost]
+        public JsonResult Save(Employee employee)
+        {
+            ItemManager.Instance.SaveEmployee(employee);
+            return Json(new { data = JsonConvert.SerializeObject(employee, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult GetEmployees()
         {
