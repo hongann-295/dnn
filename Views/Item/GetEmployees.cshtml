@@ -58,17 +58,15 @@
                         </div>
                         <div>
                             <label>Gender:</label>
-                           <select id="Gender" class="form-control">
-                               <option value="1">Male</option>
-                               <option value="2">Female</option>
-                               <option value="3">Other</option>
-                           </select>
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option value="">Select Gender</option>
+                            </select>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" onclick="employee.save()">Save</button>
+                        <button type="button" class="btn btn-success" onclick="employee.save()">Create</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -80,7 +78,7 @@
     <div class="modal" id="DetailEmployee">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="desEmployee">
+                <div id="desEmployee">
                     <input hidden id="Id" />
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -89,82 +87,17 @@
                     </div>
 
                     <!-- Modal body -->
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control" id="Name" name="FullName">
-                                </div>
-                            </div>
+                    <div class="modal-body">
+                        <div>
+                            <label>Name:</label>
+                            <input type="text" class="form-control" id="Name" name="FullName">
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Gender:</label>
-                                    @*<input type="text" class="form-control" id="Gender" name="Gender">*@
-                                    @*<div class="row">
-            <div class="col-md-4">
-                <input type="radio" value="1" id="Male" name="customRadio" class="custom-control-input">
-                <label>Male</label>
-            </div>
-            <div class="col-md-4">
-                <input type="radio" value="0" id="Female" name="customRadio" class="custom-control-input">
-                <label>Female</label>
-            </div>
-            <div class="col-md-4">
-                <input type="radio" value="0" id="Other" name="customRadio" class="custom-control-input">
-                <label>Other</label>
-            </div>
-        </div>*@
-                                    <select id="Gender" class="form-control">
-                                        <option value="1">Male</option>
-                                        <option value="2">Female</option>
-                                        <option value="3">Other</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div>
+                            <label>Gender:</label>
+                            <select class="form-control" id="Gender" name="Gender">
+                                <option value="" class="form-control">Select Gender</option>
+                            </select>
                         </div>
-
-
-                        @*<div>
-                                <label>Name:</label>
-                                <input type="text" class="form-control" id="Name" name="FullName">
-                            </div>*@
-                        @*<div>
-                                <label>Gender:</label>
-                                <input type="text" class="form-control" id="Gender" name="Gender">
-                            </div>*@
-                        @*<div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label weight-400" for="customRadio4">Male</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label weight-400" for="customRadio4">Female</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label weight-400" for="customRadio4">Other</label>
-                                    </div>
-                                </div>
-                            </div>*@
-                        @*<div class="form-group">
-                                <label>Gender :</label>
-                                <div class="d-flex">
-                                    <div class="custom-control custom-radio mb-5 mr-20">
-                                        <input type="radio" value="1" id="customRadio4" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label weight-400" for="customRadio4">Male</label>
-                                    </div>
-                                    <div class="custom-control custom-radio mb-5">
-                                        <input type="radio" value="0" id="customRadio5" name="customRadio" class="custom-control-input">
-                                        <label class="custom-control-label weight-400" for="customRadio5">Female</label>
-                                    </div>
-                                </div>
-                            </div>*@
                     </div>
 
                     <!-- Modal footer -->

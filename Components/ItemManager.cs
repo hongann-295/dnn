@@ -149,8 +149,8 @@ namespace Christoc.Modules.Chart.Components
         {
             using (IDataContext ctx = DataContext.Instance())
             {
-                //ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
-                ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2", new object[] {employee.Id, employee.Name, employee.Gender } ));
+                ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
+                
             }
         }
     }

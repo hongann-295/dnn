@@ -73,30 +73,18 @@ employee.get = function (id) {
         },
         success: function (data) {
             var obj = JSON.parse(data.data);
-            $('.desEmployee #Name').val(obj.Name);
-             $('#desEmployee').find('#Id').text(id);
-            $('.desEmployee #Gender').val(obj.Gender);
-
-            //if ($('.desEmployee #Gender').val(obj.Gender) == "Female") {
-            //    $('#customRadio4').prop('checked', true);
-            //}
-            //else {
-            //    $('#customRadio5').prop('checked', true);
-            //}
-
-            //switch ($('.desEmployee #Gender').val(obj.Gender)) {
-            //    case $('.desEmployee #Gender').val(obj.Gender) == "Female":
-            //        $('#customRadio4').prop('checked', true);
-            //        break;
-            //    case $('.desEmployee #Gender').val(obj.Gender) == "Male":
-            //        $('#customRadio5').prop('checked', true);
-            //        break;
-            //    case $('.desEmployee #Gender').val(obj.Gender) == "Other":
-            //        $('#customRadio6').prop('checked', true);
-            //        break;
-            //}
-
-
+            $('#desEmployee #Name').val(obj.Name);
+            $('#desEmployee').find('#Id').text(id);
+           $('#desEmployee #Gender').val(obj.Gender);
+            $('#desEmployee #Gender').empty();
+            $.each(obj, function (i, v) {
+                $('#desEmployee #Gender').append(`<option value=${obj.Id} >${obj.Gender}</option>`)
+            });
+            //$('#desEmployee #Gender').val(obj.Gender);
+           //$('#desEmployee #Gender').empty();
+           // $('#desEmployee #Gender').append(`<option value=${obj.Id} >${obj.Gender}</option>`)
+           // $('#desEmployee #Gender').append(`<option value=${obj.Id} >${obj.Gender}</option>`)
+           // $('#desEmployee #Gender').append(`<option value=${obj.Id} >${obj.Gender}</option>`)
             $('#DetailEmployee').modal('show');
         }
     });
@@ -143,3 +131,36 @@ employee.delete = function (id) {
         }
     });
 }
+
+employee.initGender = function () {
+    var rvtoken = $("input[name='__RequestVerificationToken']").val();
+    var ModuleId = $('#ModuleId').val();
+    var TabId = $('#TabId').val();
+    var siteRoot = dnn.getVar("sf_siteRoot", "/");
+    $.ajax({
+        url: siteRoot + 'DesktopModules/MVC/Chart/Item/GetEmployees',
+        method: "GET",
+        dataType: "json",
+        headers: {
+            "ModuleId": ModuleId,
+            "TabId": TabId,
+            "RequestVerificationToken": rvtoken
+        },
+        success: function (data) {
+            var obj = JSON.parse(data.data);
+            $('#desEmployee #Gender').empty();
+            $.each(obj, function (i, v) {
+                $('#desEmployee #Gender').append(`<option value=${obj.Id} >${obj.Gender}</option>`)
+            });
+        }
+    });
+}
+
+employee.init = function () {
+
+    employee.initGender();
+};
+
+$(document).ready(function () {
+    employee.init();
+});
