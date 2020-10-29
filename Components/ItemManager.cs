@@ -29,15 +29,18 @@ namespace Christoc.Modules.Chart.Components
         Item GetItem(int itemId, int moduleId);
         void UpdateItem(Item t);
         IEnumerable<GetChart> GetCharts();
+       
         void SaveEmployee(Employee employee);
         //void UpdateEmployee(Employee employee);
         Employee GetEmployee(int employeeId);
         IEnumerable<Employee> GetEmployees();
         DeleteResult DeleteEmployee(int Id);
+        void CreateChart(DetailChart detailChart);
     }
 
     class ItemManager : ServiceLocator<IItemManager, ItemManager>, IItemManager
     {
+
         public void CreateItem(Item t)
         {
             using (IDataContext ctx = DataContext.Instance())
@@ -151,6 +154,15 @@ namespace Christoc.Modules.Chart.Components
             {
                 ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
                 
+            }
+        }
+
+        public void CreateChart(DetailChart detailChart)
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                var rep = ctx.GetRepository<DetailChart>();
+                rep.Insert(detailChart);
             }
         }
     }

@@ -32,25 +32,36 @@ employee.openAddEmployee = function () {
 employee.save = function () {
     var rvtoken = $("input[name='__RequestVerificationToken']").val();
     var siteRoot = dnn.getVar("sf_siteRoot", "/");
-    var saveEmployee = {};
-    saveEmployee.Name = $('#Name').val();
-    saveEmployee.Id = parseInt($('#Id').val());
-    saveEmployee.Gender = $('#Gender').val();
+    var employees = {};
+    employees.Name = $('#Name').val();
+    employees.Id = parseInt($('#Id').val());
+    employees.Gender = $('#Gender').val();
     $.ajax({
-        url: siteRoot + 'DesktopModules/MVC/Chart/Item/SaveEmployee/',
+        url: siteRoot + 'DesktopModules/MVC/Chart/Employees/SaveEmployee/',
         method: "POST",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(saveEmployee),
+        data: JSON.stringify(employees),
         headers: {
             "ModuleId": ModuleId,
             "TabId": TabId,
             "RequestVerificationToken": rvtoken
         },
-        success: function (data) {
+        success: function (response) {
             $('#addEmployee').modal('hide');
-            bootbox.alert(data.data.message);
-        }
+            if (response != null) {
+                alert("Name : " + response.Name + ", Gender : " + response.Gender);
+            } else {
+                alert("Something went wrong");
+            }
+        },
+        error: function (response) {
+            alert(response.responseText);
+        } 
+        //success: function (data) {
+        //    $('#addEmployee').modal('hide');
+        //    //bootbox.alert(data.data.message);
+        //}
     });
 }
 

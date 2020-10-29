@@ -52,7 +52,7 @@
                 <moduleControls>
                   <moduleControl>
                     <controlKey />
-                    <controlSrc>Christoc.Modules.Chart.Controllers/Item/GetEmployees.mvc</controlSrc>
+                    <controlSrc>Christoc.Modules.Chart.Controllers/Item/Index.mvc</controlSrc>
                     <supportsPartialRendering>False</supportsPartialRendering>
                     <controlTitle />
                     <controlType>View</controlType>

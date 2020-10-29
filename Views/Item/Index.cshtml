@@ -4,7 +4,7 @@
 @using DotNetNuke.Web.Mvc.Helpers
 @using Christoc.Modules.Chart.Models
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+@*<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>*@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -12,7 +12,7 @@
 @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />*@
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>*@
 <link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-3.3.2.min.css" rel="stylesheet" />
 <link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.css" rel="stylesheet" />
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -23,33 +23,6 @@
 @*<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>*@
 
 <figure class="highcharts-figure">
-    <div>
-        <a href="javascript:void(0);" onclick="employee.openAddEmployee()" class="btn btn-success">Add Employee</a>
-
-    </div>
-    <div class="container">
-        <div></div>
-        <table class="table table-striped" id="tbEmployee">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Gender</th>
-                </tr>
-            </thead>
-            <tbody>
-                @*@foreach (var employee in Model)
-                {
-                    <tr>
-                        <td class="table-plus">@employee.Id</td>
-                        <td>@employee.Name</td>
-                        <td>@employee.Gender</td>
-
-                    </tr>
-                }*@
-            </tbody>
-        </table>
-    </div>
     @*<div>
             <label for="select">This is selected mutiple checkbox</label>
             <select multiple id="select">
@@ -79,63 +52,178 @@
                 <option class="custom-checkbox" value="XML">XML</option>
             </select>
         </div>*@
-    <div id="container"></div>
+    
 </figure>
-<div class="modal" id="addEmployee">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <input hidden id="Id" />
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div>
-                    <label>Name:</label>
-                    <input type="text" class="form-control" id="Name" name="FullName">
+<form class="form-inline" action="/action_page.php">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3"><label for="cars">Loại biểu đồ:</label></div>
+                <div class="col-md-9">
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" checked value="column">Cột
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="line" />Đường
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="bar" />Bar
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="area" />Vùng
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="spline" />Point
+                    </label>
                 </div>
-                <div>
-                    <label>Gender:</label>
-                    <input type="text" class="form-control" id="Gender" name="Gender">
-                </div>
             </div>
+            <div class="row">
+                <div class="col-md-3"><label class="mr-sm-2"></label></div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="employee.save()">Save</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
-
+            <div class="row">
+                <div class="col-md-3"> <label for="cars">Tên biểu đồ:</label></div>
+                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"> <label for="cars">Mô tả biểu đồ:</label></div>
+                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"> <label for="cars">Tên AxisX:</label></div>
+                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"><label for="cars">Tên AxisY:</label></div>
+                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+        <div class="col-md-6">
+            <div id="container"></div>
         </div>
     </div>
-</div>
+</form>
+@*<div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="cars">Loại biểu đồ:</label>
+                </div>
+                <div class="col-md-9">
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" checked value="column">Cột
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="line" />Đường
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="bar" />Bar
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="area" />Vùng
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typechart" value="spline" />Point
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="cars">Tên biểu đồ:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="chk-field name-chart form-control" name="checkboxfield">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="cars">Mô tả biểu đồ:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="chk-field sub-title form-control" name="checkboxfield">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="cars">Tên AxisX:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="chk-field name-x form-control" name="checkboxfield">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="cars">Tên AxisY:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" class="chk-field name-y form-control" name="checkboxfield">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="AXisX">Chọn AxisX:</label>
+                </div>
+                <div class="col-md-9">
+                    <select id="AXisX" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="AXisY">Chọn AxisY:</label>
+                </div>
+                <div class="col-md-9">
+                    <select id="AXisY" multiple class="multiple form-control">
+
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="ArticleInTopic">Bài viết cùng chủ đề:</label>
+                </div>
+                <div class="col-md-9">
+                    <select id="ArticleInTopic" multiple class="multiple form-control"></select>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn-getdata btn">Hiển thị biểu đồ</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+
+            <div id="container"></div>
+        </div>
+    </div>
+</div>*@
 
 <script type="text/javascript">
 
-    //$(document).ready(function () {
-    //    $('#select').multiselect({
-    //        includeSelectAllOption: true,
-    //        nonSelectedText: '--Chọn--',
-    //        buttonWidth: 350,
-    //        enableFiltering: true
-    //    });
-    //    //$(".js-example-basic-multiple").select2({
-    //    //    maximumSelectionLength: 2
-    //    //});
+    $(document).ready(function () {
+        $('#select').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 350,
+            enableFiltering: true
+        });
+        //$(".js-example-basic-multiple").select2({
+        //    maximumSelectionLength: 2
+        //});
 
-    //    //var last_valid_selection = null;
-    //    //$('#select').change(function (event) {
-    //    //    if ($(this).val().length > 2) {
-    //    //        alert('You can only choose 2!');
-    //    //        $(this).val(last_valid_selection);
-    //    //    } else {
-    //    //        last_valid_selection = $(this).val();
-    //    //    }
-    //    //});
-    //});
+        //var last_valid_selection = null;
+        //$('#select').change(function (event) {
+        //    if ($(this).val().length > 2) {
+        //        alert('You can only choose 2!');
+        //        $(this).val(last_valid_selection);
+        //    } else {
+        //        last_valid_selection = $(this).val();
+        //    }
+        //});
+    });
     //var verified = [];
     //document.querySelector('select').onchange = function (e) {
     //    if (this.querySelectorAll('option:checked').length <= 5) {
@@ -149,7 +237,7 @@
 
 
 
-    @*var chart;
+    var chart;
     $(document).ready(function () {
         chart = new Highcharts.Chart({
             chart: {
@@ -163,7 +251,7 @@
                 text: 'Demo',
             },
             xAxis: {
-                categories: ['Male', 'Female', 'Other']
+                categories: []
             },
             yAxis: {
                 min: 0,
@@ -213,7 +301,7 @@
 
 
                 }
-               // chart.xAxis[0].setCategories(Genders)
+               chart.xAxis[0].setCategories(Genders)
                 console.log(Genders);
                 console.log(Amounts);
 
@@ -223,7 +311,7 @@
                 alert(thrownError);
             }
         })
-    }*@
+    }
 
 
     @*var employee = {} || employee;
@@ -264,8 +352,6 @@
 
 <!-- Latest compiled JavaScript -->
 @*<script src="~/desktopmodules/mvc/Chart/scripts/employee.js"></script>*@
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>*@

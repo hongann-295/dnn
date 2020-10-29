@@ -22,6 +22,7 @@ using DotNetNuke.Framework.JavaScriptLibraries;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
+using System.Data.Linq;
 
 namespace Christoc.Modules.Chart.Controllers
 {
@@ -99,12 +100,20 @@ namespace Christoc.Modules.Chart.Controllers
         public JsonResult Save(Employee employee)
         {
             ItemManager.Instance.SaveEmployee(employee);
-            return Json(new { data = JsonConvert.SerializeObject(employee, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+            Employee employees = new Employee()
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Gender = employee.Gender
+            };
+            return Json(employees, JsonRequestBehavior.AllowGet);
+            //return Json(new { data = JsonConvert.SerializeObject(employees, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetEmployees()
         {
             var employee = ItemManager.Instance.GetEmployees();
+           
             return View(employee);
         }
 
@@ -141,6 +150,27 @@ namespace Christoc.Modules.Chart.Controllers
             }
 
         }
+
+        //public ActionResult CreateChart(DetailChart detailChart)
+        //{
+        //    ItemManager.Instance.CreateChart(detailChart);
+        //    return RedirectToDefaultRoute();
+
+        //}
+        
+        //[HttpPost]
+        //public ActionResult Create(DetailChart detailChart)
+        //{
+              
+        //    if (ModelState.IsValid)
+        //    {
+                
+               
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(detailChart);
+        //}
     }
 }
 
