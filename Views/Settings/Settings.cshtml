@@ -1,20 +1,109 @@
-﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage <Christoc.Modules.Chart.Models.Settings>
-
+﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Christoc.Modules.Chart.Models.Settings>
 @using DotNetNuke.Web.Mvc.Helpers
-
-<h2 id="dnnSitePanel-BasicSettings" class="dnnFormSectionHead"><a href="" class="dnnSectionExpanded">@Dnn.LocalizeString("BasicSettings")</a></h2>
 <fieldset>
-    <div class="dnnFormItem">
-        <div class="dnnLabel" style="position: relative;">
-            @Html.LabelFor(m => Model.Setting1, new { @class = "col-md-2 control-label" })
+    <div class="container">
+        <div class="row" style="margin-top:10px">
+            <div class="col-md-3 "><label for="cars">Loại biểu đồ:</label></div>
+            <div class="col-md-9">
+                <label class="radio-inline">
+                    <input type="radio" name="typechart" checked value="column">Cột
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="typechart" value="line" />Đường
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="typechart" value="bar" />Bar
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="typechart" value="area" />Vùng
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="typechart" value="spline" />Point
+                </label>
+            </div>
         </div>
-        @Html.CheckBoxFor(m => Model.Setting1)
-    </div>
-    <div class="dnnFormItem">
-        <div class="dnnLabel" style="position: relative;">
-            @Html.LabelFor(m => Model.Setting2, new { @class = "col-md-2 control-label" })
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"> <label for="cars">Tên biểu đồ:</label></div>
+            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
         </div>
-        @Html.TextBoxFor(m => Model.Setting2)
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"> <label for="cars">Mô tả biểu đồ:</label></div>
+            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"> <label for="cars">Tên AxisX:</label></div>
+            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"><label for="cars">Tên AxisY:</label></div>
+            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        </div>
+
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"><label for="cars">Chọn AxisX:</label></div>
+            <select class="col-sm-9" id="selectX" multiple="multiple">
+                <option value="Bootstrap">Bootstrap Tips</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS tricks</option>
+                <option value="angular">Angular JS</option>
+            </select>
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"><label for="cars">Chọn AxisY:</label></div>
+            <select class="col-sm-9" id="selectY" multiple="multiple">
+                <option value="Bootstrap">Bootstrap Tips</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS tricks</option>
+                <option value="angular">Angular JS</option>
+            </select>
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-sm-3"><label for="cars">Bài viết cùng chủ đề:</label></div>
+            <select class="col-sm-9" id="selectTopic" multiple="multiple">
+                <option value="Bootstrap">Bootstrap Tips</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS tricks</option>
+                <option value="angular">Angular JS</option>
+            </select>
+        </div>
     </div>
 </fieldset>
-
+<script>
+    $(document).ready(function () {
+        $('#selectX').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 350,
+            enableFiltering: true
+        });
+        $('#selectY').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 350,
+            enableFiltering: true
+        });
+        $('#selectTopic').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 350,
+            enableFiltering: true
+        });
+    });
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+    .dnnCheckbox .mark {
+        background-color: initial !important
+    }
+    .mark, mark {
+        background-color: initial !important
+    }
+    .row {
+        display: contents;
+    }
+</style>
