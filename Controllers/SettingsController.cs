@@ -15,6 +15,9 @@ using DotNetNuke.Collections;
 using System.Web.Mvc;
 using DotNetNuke.Security;
 using DotNetNuke.Web.Mvc.Framework.ActionFilters;
+using Christoc.Modules.Chart.Components;
+using Newtonsoft.Json;
+using System;
 
 namespace Christoc.Modules.Chart.Controllers
 {
@@ -32,8 +35,23 @@ namespace Christoc.Modules.Chart.Controllers
             var settings = new Models.Settings();
             settings.Setting1 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting1", false);
             settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
+            ViewBag.Cities = ItemManager.Instance.Cities();
 
             return View(settings);
+        }
+
+        [HttpGet]
+        public JsonResult GetCity()
+        {
+            var cities = ItemManager.Instance.Cities();
+            return Json(new { data = JsonConvert.SerializeObject(cities, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetPersons(int id)
+        {
+            var person = ItemManager.Instance.GetPersons(id);
+            return Json(new { data = JsonConvert.SerializeObject(person, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

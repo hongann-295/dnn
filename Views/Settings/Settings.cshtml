@@ -1,10 +1,28 @@
 ﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Christoc.Modules.Chart.Models.Settings>
 @using DotNetNuke.Web.Mvc.Helpers
+@using Christoc.Modules.Chart.Models;
+
+@{
+    var cities = ViewBag.Cities as List<GetCityAll>;
+}
 <fieldset>
     <div class="container">
-        <div class="row" style="margin-top:10px">
-            <div class="col-md-3 "><label for="cars">Loại biểu đồ:</label></div>
-            <div class="col-md-9">
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Chọn chủ đề:</label></div>
+            @*@Html.Partial("_showCity");*@
+            <div class="col-sm-9" style="margin-top:12px;">
+                <select id="IdCities" class="form-control" href="javascript:;" onchange="showPerson(this.value)">
+                    @foreach (var item in cities)
+                    {
+                        <option value="@item.Id">@item.City</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Loại biểu đồ:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;">
                 <label class="radio-inline">
                     <input type="radio" name="typechart" checked value="column">Cột
                 </label>
@@ -22,50 +40,50 @@
                 </label>
             </div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"> <label for="cars">Tên biểu đồ:</label></div>
-            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Tên biểu đồ:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"> <label for="cars">Mô tả biểu đồ:</label></div>
-            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Mô tả biểu đồ:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"> <label for="cars">Tên AxisX:</label></div>
-            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Tên AxisX:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"><label for="cars">Tên AxisY:</label></div>
-            <div class="col-sm-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Tên AxisY:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>
         </div>
-
-
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"><label for="cars">Chọn AxisX:</label></div>
-            <select class="col-sm-9" id="selectX" multiple="multiple">
-                <option value="Bootstrap">Bootstrap Tips</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS tricks</option>
-                <option value="angular">Angular JS</option>
-            </select>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Chọn AxisX:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;">
+                <select id="selectX" multiple="multiple">
+                    <option value="Bootstrap">Bootstrap Tips</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS tricks</option>
+                    <option value="angular">Angular JS</option>
+                </select>
+            </div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"><label for="cars">Chọn AxisY:</label></div>
-            <select class="col-sm-9" id="selectY" multiple="multiple">
-                <option value="Bootstrap">Bootstrap Tips</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS tricks</option>
-                <option value="angular">Angular JS</option>
-            </select>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Chọn AxisY:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;">
+                <select id="selectY" multiple="multiple">
+                    <option value="Bootstrap">Bootstrap Tips</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS tricks</option>
+                    <option value="angular">Angular JS</option>
+                </select>
+            </div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-sm-3"><label for="cars">Bài viết cùng chủ đề:</label></div>
-            <select class="col-sm-9" id="selectTopic" multiple="multiple">
-                <option value="Bootstrap">Bootstrap Tips</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS tricks</option>
-                <option value="angular">Angular JS</option>
-            </select>
+        <div class="row">
+            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Bài viết cùng chủ đề:</label></div>
+            <div class="col-sm-9" style="margin-top:12px;">
+                <select id="selectPerson" multiple="multiple">
+                </select>
+            </div>
         </div>
     </div>
 </fieldset>
@@ -89,7 +107,46 @@
             buttonWidth: 350,
             enableFiltering: true
         });
+        $('#selectPerson').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 350,
+            enableFiltering: true
+        });
+         var rvtoken = $("input[name='__RequestVerificationToken']").val();
+        var ModuleId = @Dnn.ModuleContext.ModuleId;
+        var TabId = @Dnn.ModuleContext.TabId;
+        var siteRoot = dnn.getVar("sf_siteRoot", "/");
+        showPerson = function (id) {
+            console.log(id);
+            $.ajax({
+                url: siteRoot + `DesktopModules/MVC/Chart/Settings/GetPersons`,
+                method: "GET",
+                contentType: "application/json; charset=utf-8", dataType: "json",
+                dataType: "json",
+                data: { id: id },
+                headers: {
+                    "ModuleId": ModuleId,
+                    "TabId": TabId,
+                    "RequestVerificationToken": rvtoken
+                },
+                success: function (data) {
+                    var persons = JSON.parse(data.data);
+                    console.log(persons);
+                    $(`#selectPerson`).empty();
+                    for (var i = 0; i < persons.length; i++) {
+                        $(`#selectPerson`).append(`<option>${persons[i].Name}</option>`)
+                    }
+                }
+            });
+        }
+
+
+
     });
+
+
+
 </script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
@@ -100,9 +157,11 @@
     .dnnCheckbox .mark {
         background-color: initial !important
     }
+
     .mark, mark {
         background-color: initial !important
     }
+
     .row {
         display: contents;
     }

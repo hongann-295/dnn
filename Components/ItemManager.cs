@@ -33,6 +33,7 @@ namespace Christoc.Modules.Chart.Components
         void SaveEmployee(Employee employee);
         //void UpdateEmployee(Employee employee);
         Employee GetEmployee(int employeeId);
+        IEnumerable<GetPerson> GetPersons(int Id);
         IEnumerable<Employee> GetEmployees();
         DeleteResult DeleteEmployee(int Id);
         void CreateChart(DetailChart detailChart);
@@ -171,6 +172,14 @@ namespace Christoc.Modules.Chart.Components
             using (IDataContext ctx = DataContext.Instance())
             {
                 return ctx.ExecuteQuery<GetCityAll>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetCiTy"));
+            }
+        }
+
+        public IEnumerable<GetPerson> GetPersons(int Id)
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                return ctx.ExecuteQuery<GetPerson>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetPersonByCiTy {0}", Id)).ToList();
             }
         }
     }
