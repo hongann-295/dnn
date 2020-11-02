@@ -1,5 +1,5 @@
 ﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Christoc.Modules.Chart.Models.Item>>
- 
+
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
 @using Christoc.Modules.Chart.Models
@@ -13,10 +13,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />*@
 
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>*@
-<link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-3.3.2.min.css" rel="stylesheet" />
-<link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.css" rel="stylesheet" />
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-<script src="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.js"></script>
+@*<link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-3.3.2.min.css" rel="stylesheet" />*@
+@*<link href="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <script src="~/desktopmodules/mvc/Chart/scripts/bootstrap-multiselect.js"></script>*@
 @*<script src="~/desktopmodules/mvc/Chart/scripts/employee.js"></script>*@
 
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>*@
@@ -52,14 +52,28 @@
                 <option class="custom-checkbox" value="XML">XML</option>
             </select>
         </div>*@
-    
+
 </figure>
-<form class="form-inline" action="/action_page.php">
+<form class="form-inline" >
     <div class="row">
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-3"><label for="cars">Loại biểu đồ:</label></div>
-                <div class="col-md-9">
+                <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Chọn chủ đề:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;">
+                    @*<select id="selectChuDe" multiple="multiple">
+            <option value="Bootstrap">Bootstrap Tips</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS tricks</option>
+            <option value="angular">Angular JS</option>
+        </select>*@
+                    <select class="form-control"  id="IdCities" onclick="city.showCity()">
+                        <option>Select City</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Loại biểu đồ:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;">
                     <label class="radio-inline">
                         <input type="radio" name="typechart" checked value="column">Cột
                     </label>
@@ -78,164 +92,90 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3"><label class="mr-sm-2"></label></div>
-
+                <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Tên biểu đồ:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>
             </div>
             <div class="row">
-                <div class="col-md-3"> <label for="cars">Tên biểu đồ:</label></div>
-                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+                <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Mô tả biểu đồ:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>
             </div>
             <div class="row">
-                <div class="col-md-3"> <label for="cars">Mô tả biểu đồ:</label></div>
-                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+                <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Tên AxisX:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>
             </div>
             <div class="row">
-                <div class="col-md-3"> <label for="cars">Tên AxisX:</label></div>
-                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+                <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Tên AxisY:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>
             </div>
             <div class="row">
-                <div class="col-md-3"><label for="cars">Tên AxisY:</label></div>
-                <div class="col-md-9"><input type="text" class="form-control mb-2 mr-sm-2" id=""></div>
+                <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Chọn AxisX:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;">
+                    <select id="selectX" multiple="multiple">
+                        <option value="Bootstrap">Bootstrap Tips</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS tricks</option>
+                        <option value="angular">Angular JS</option>
+                    </select>
+                </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            <div class="row">
+                <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Chọn AxisY:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;">
+                    <select id="selectY" multiple="multiple">
+                        <option value="Bootstrap">Bootstrap Tips</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS tricks</option>
+                        <option value="angular">Angular JS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Bài viết cùng chủ đề:</label></div>
+                <div class="col-sm-9" style="margin-top:12px;">
+                    <select id="selectTopic" multiple="multiple">
+                        <option value="Bootstrap">Bootstrap Tips</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS tricks</option>
+                        <option value="angular">Angular JS</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div id="container"></div>
         </div>
     </div>
+
 </form>
-@*<div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="cars">Loại biểu đồ:</label>
-                </div>
-                <div class="col-md-9">
-                    <label class="radio-inline">
-                        <input type="radio" name="typechart" checked value="column">Cột
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="typechart" value="line" />Đường
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="typechart" value="bar" />Bar
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="typechart" value="area" />Vùng
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="typechart" value="spline" />Point
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="cars">Tên biểu đồ:</label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="chk-field name-chart form-control" name="checkboxfield">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="cars">Mô tả biểu đồ:</label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="chk-field sub-title form-control" name="checkboxfield">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="cars">Tên AxisX:</label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="chk-field name-x form-control" name="checkboxfield">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="cars">Tên AxisY:</label>
-                </div>
-                <div class="col-md-9">
-                    <input type="text" class="chk-field name-y form-control" name="checkboxfield">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="AXisX">Chọn AxisX:</label>
-                </div>
-                <div class="col-md-9">
-                    <select id="AXisX" class="form-control">
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="AXisY">Chọn AxisY:</label>
-                </div>
-                <div class="col-md-9">
-                    <select id="AXisY" multiple class="multiple form-control">
 
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="ArticleInTopic">Bài viết cùng chủ đề:</label>
-                </div>
-                <div class="col-md-9">
-                    <select id="ArticleInTopic" multiple class="multiple form-control"></select>
-                </div>
-            </div>
-            <div>
-                <button type="button" class="btn-getdata btn">Hiển thị biểu đồ</button>
-            </div>
-        </div>
-        <div class="col-md-6">
-
-
-            <div id="container"></div>
-        </div>
-    </div>
-</div>*@
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-        $('#select').multiselect({
+        $('#selectX').multiselect({
             includeSelectAllOption: true,
             nonSelectedText: '--Chọn--',
-            buttonWidth: 350,
+            buttonWidth: 355,
             enableFiltering: true
         });
-        //$(".js-example-basic-multiple").select2({
-        //    maximumSelectionLength: 2
-        //});
-
-        //var last_valid_selection = null;
-        //$('#select').change(function (event) {
-        //    if ($(this).val().length > 2) {
-        //        alert('You can only choose 2!');
-        //        $(this).val(last_valid_selection);
-        //    } else {
-        //        last_valid_selection = $(this).val();
-        //    }
-        //});
+        $('#selectY').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 355,
+            enableFiltering: true
+        });
+        $('#selectTopic').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 355,
+            enableFiltering: true
+        });
+        $('#selectChuDe').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: '--Chọn--',
+            buttonWidth: 355,
+            enableFiltering: true
+        });
     });
-    //var verified = [];
-    //document.querySelector('select').onchange = function (e) {
-    //    if (this.querySelectorAll('option:checked').length <= 5) {
-    //        verified = Array.apply(null, this.querySelectorAll('option:checked'));
-    //    } else {
-    //        Array.apply(null, this.querySelectorAll('option')).forEach(function (e) {
-    //            e.selected = verified.indexOf(e) > -1;
-    //        });
-    //    }
-    //}
-
-
 
     var chart;
     $(document).ready(function () {
@@ -248,7 +188,7 @@
                 }
             },
             title: {
-                text: 'Demo',
+                text: $('#name-chart').val(),
             },
             xAxis: {
                 categories: []
@@ -286,25 +226,55 @@
                 "TabId": TabId,
                 "RequestVerificationToken": rvtoken
             },
+            //success: function (data) {
+            //    chartData = data.data;
+            //    var obj = JSON.parse(chartData);
+            //    for (var i = 0; i < obj.length; i++) {
+            //        Genders.push(obj[i].Gender);
+            //        //alert(obj[i].Gender);
+            //        Amounts.push(obj[i].Amount);
+            //        //alert(obj[i].Amount);
+            //        chart.addSeries({
+            //            name: obj[i].Gender,
+            //            data: JSON.parse("[" + obj[i].Amount + ",2,3]")
+            //        });
+
+            //    }
+            //   chart.xAxis[0].setCategories(Genders)
+            //    console.log(Genders);
+            //    console.log(Amounts);
+
+            //},
             success: function (data) {
-                chartData = data.data;
+                chartData = data.gender;
                 var obj = JSON.parse(chartData);
-                for (var i = 0; i < obj.length; i++) {
-                    Genders.push(obj[i].Gender);
-                    //alert(obj[i].Gender);
-                    Amounts.push(obj[i].Amount);
-                    //alert(obj[i].Amount);
-                    chart.addSeries({
-                        name: obj[i].Gender,
-                        data: JSON.parse("[" + obj[i].Amount + ",2,3]")
-                    });
-
-
+                console.log(obj);
+                var amountArr1 = []; amountArr2 = []; amountArr3 = []; cities = [];
+                for (var i = 0; i < obj.Cities1.length; i++) {
+                    amountArr1.push(obj.Cities1[i].Amount);
                 }
-               chart.xAxis[0].setCategories(Genders)
-                console.log(Genders);
-                console.log(Amounts);
-
+                for (var i = 0; i < obj.Cities2.length; i++) {
+                    amountArr2.push(obj.Cities2[i].Amount);
+                    cities.push(obj.Cities2[i].CityName)
+                }
+                for (var i = 0; i < obj.Cities3.length; i++) {
+                    amountArr3.push(obj.Cities3[i].Amount);
+                }
+                console.log(amountArr1);
+                chart.addSeries({
+                    name: "Male",
+                    data: amountArr1
+                });
+                chart.addSeries({
+                    name: "Female",
+                    data: amountArr2
+                });
+                chart.addSeries({
+                    name: "Other",
+                    data: amountArr3
+                });
+                console.log(cities);
+                chart.xAxis[0].setCategories(cities)
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -312,46 +282,61 @@
             }
         })
     }
-
-
-    @*var employee = {} || employee;
-    employee.openAddEmployee = function () {
-        $('#addEmployee').modal('show');
-    };
-    employee.save = function () {
-        var rvtoken = $("input[name='__RequestVerificationToken']").val();
+    @*var city = {} || city;
+     city.showCity = function () {
+         var rvtoken = $("input[name='__RequestVerificationToken']").val();
         var ModuleId = @Dnn.ModuleContext.ModuleId;
         var TabId = @Dnn.ModuleContext.TabId;
         var siteRoot = dnn.getVar("sf_siteRoot", "/");
-        var saveEmployee = {};
-        saveEmployee.Name = $('#Name').val();
-        saveEmployee.Id = parseInt($('#Id').val());
-        saveEmployee.Gender = $('#Gender').val();
-        //saveEmployee.Gender = $("input[name='customRadio']:checked").val();
+        var chartData;
         $.ajax({
-            url: siteRoot + 'DesktopModules/MVC/Chart/Item/SaveEmployee/',
-            method: "POST",
+            url: 'DesktopModules/MVC/Chart/Item/GetCity',
+            method: "GET",
+            contentType: "application/json; charset=utf-8", dataType: "json",
+            headers: {
+                "ModuleId": ModuleId,
+                "TabId": TabId,
+                "RequestVerificationToken": rvtoken
+            },
             dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(saveEmployee),
             success: function (data) {
-                $('#addEmployee').modal('hide');
-                bootbox.alert(data.result.message);
+                console.log(data.data);
+                $.each(data.data, function (i, v) {
+                    $('#IdCities').append(`<option value=${v.IdCity} >${v.CityName}</option>`)
+                });
             }
         });
     }*@
 </script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@*<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>*@
 
 <!-- Latest compiled JavaScript -->
 @*<script src="~/desktopmodules/mvc/Chart/scripts/employee.js"></script>*@
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>*@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+    .dnnCheckbox .mark {
+        background-color: initial !important
+    }
+
+    .mark, mark {
+        background-color: initial !important
+    }
+
+    .row {
+        display: contents;
+    }
+</style>

@@ -88,12 +88,49 @@ namespace Christoc.Modules.Chart.Controllers
             return View(items);
         }
 
+        //[HttpGet]
+        //public JsonResult GetResults()
+        //{
+        //    var listCharts = ItemManager.Instance.GetCharts();
+        //    return Json(new { data = JsonConvert.SerializeObject(listCharts, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+
+        //}
+
         [HttpGet]
         public JsonResult GetResults()
         {
             var listCharts = ItemManager.Instance.GetCharts();
-            return Json(new { data = JsonConvert.SerializeObject(listCharts, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-            
+            Gender gender = new Gender();
+            gender.Cities1 = new List<City>();
+            gender.Cities2 = new List<City>();
+            gender.Cities3 = new List<City>();
+            foreach (var item in listCharts)
+            {
+                City city = new City();
+                if (item.Gender == "Male")
+                {
+                    city.IdCity = item.IdCity;
+                    city.CityName = item.CityName;
+                    city.Amount = item.Amount;
+                    gender.Cities1.Add(city);
+                }
+                if (item.Gender == "Female")
+                {
+                    city.IdCity = item.IdCity;
+                    city.CityName = item.CityName;
+                    city.Amount = item.Amount;
+                    gender.Cities2.Add(city);
+                }
+                if (item.Gender == "Other")
+                {
+                    city.IdCity = item.IdCity;
+                    city.CityName = item.CityName;
+                    city.Amount = item.Amount;
+                    gender.Cities3.Add(city);
+                }
+            }
+            return Json(new { gender = JsonConvert.SerializeObject(gender, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]
@@ -115,6 +152,19 @@ namespace Christoc.Modules.Chart.Controllers
             var employee = ItemManager.Instance.GetEmployees();
            
             return View(employee);
+        }
+        //public ActionResult GetCity1()
+        //{
+        //    ViewBag.citiesall = ItemManager.Instance.Cities();
+        //    //var citeis = ItemManager.Instance.Cities();
+        //    return View();
+        //}
+
+        [HttpGet]
+        public JsonResult GetCity()
+        {
+            var cities = ItemManager.Instance.Cities();
+            return Json(new { data = JsonConvert.SerializeObject(cities, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

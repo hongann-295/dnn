@@ -1,0 +1,16 @@
+﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Christoc.Modules.Chart.Models.GetCityAll>>
+
+@{
+    Layout = null;
+}
+
+
+<div class="col-sm-9" style="margin-top:12px;">
+    <select id="IdCities" multiple="multiple" href="javascript:;" onchange="city.showPerson()">
+        @foreach(var item in Model)
+        {
+            <option value="@item.IdCity">@item.City</option>
+        }
+       
+    </select>
+</div>
