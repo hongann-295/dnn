@@ -36,7 +36,8 @@ namespace Christoc.Modules.Chart.Controllers
             var settings = new Models.Settings();
             settings.Setting1 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting1", false);
             settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
-
+            ViewBag.Cities = ItemManager.Instance.Cities();
+            ViewBag.SelectY = ItemManager.Instance.GetCharts();
             return View(settings);
         }
 
@@ -47,6 +48,12 @@ namespace Christoc.Modules.Chart.Controllers
             return Json(new { data = JsonConvert.SerializeObject(cities, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult GetPersons(int id)
+        {
+            var person = ItemManager.Instance.GetPersons(id);
+            return Json(new { data = JsonConvert.SerializeObject(person, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+        }
 
         //[HttpGet]
         //public JsonResult GetResults()
