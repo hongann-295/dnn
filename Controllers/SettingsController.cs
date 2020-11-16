@@ -19,6 +19,9 @@ using Newtonsoft.Json;
 using Christoc.Modules.Chart.Components;
 using Christoc.Modules.Chart.Models;
 using System.Collections.Generic;
+using DotNetNuke.Entities.Modules;
+using System;
+using System.Linq.Expressions;
 
 namespace Christoc.Modules.Chart.Controllers
 {
@@ -37,16 +40,16 @@ namespace Christoc.Modules.Chart.Controllers
             settings.Setting1 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting1", false);
             settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
             ViewBag.Cities = ItemManager.Instance.Cities();
-            ViewBag.SelectY = ItemManager.Instance.GetCharts();
+            ViewBag.SelectXY = ItemManager.Instance.GetCharts();
             return View(settings);
         }
 
-        [HttpGet]
-        public JsonResult GetCity()
-        {
-            var cities = ItemManager.Instance.Cities();
-            return Json(new { data = JsonConvert.SerializeObject(cities, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpGet]
+        //public JsonResult GetCity()
+        //{
+        //    var cities = ItemManager.Instance.Cities();
+        //    return Json(new { data = JsonConvert.SerializeObject(cities, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpGet]
         public JsonResult GetPersons(int id)
@@ -55,41 +58,8 @@ namespace Christoc.Modules.Chart.Controllers
             return Json(new { data = JsonConvert.SerializeObject(person, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        //public JsonResult GetResults()
-        //{
-        //    var listCharts = ItemManager.Instance.GetCharts();
-        //    Gender gender = new Gender();
-        //    gender.Cities1 = new List<City>();
-        //    gender.Cities2 = new List<City>();
-        //    gender.Cities3 = new List<City>();
-        //    foreach (var item in listCharts)
-        //    {
-        //        City city = new City();
-        //        if (item.Gender == "Male")
-        //        {
-        //            city.IdCity = item.IdCity;
-        //            city.CityName = item.CityName;
-        //            city.Amount = item.Amount;
-        //            gender.Cities1.Add(city);
-        //        }
-        //        if (item.Gender == "Female")
-        //        {
-        //            city.IdCity = item.IdCity;
-        //            city.CityName = item.CityName;
-        //            city.Amount = item.Amount;
-        //            gender.Cities2.Add(city);
-        //        }
-        //        if (item.Gender == "Other")
-        //        {
-        //            city.IdCity = item.IdCity;
-        //            city.CityName = item.CityName;
-        //            city.Amount = item.Amount;
-        //            gender.Cities3.Add(city);
-        //        }
-        //    }
-        //    return Json(new { gender = JsonConvert.SerializeObject(gender, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-        //}
+        
+
 
         /// <summary>
         /// 
@@ -106,5 +76,6 @@ namespace Christoc.Modules.Chart.Controllers
 
             return RedirectToDefaultRoute();
         }
+        
     }
 }

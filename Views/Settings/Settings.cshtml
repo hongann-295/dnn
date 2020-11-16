@@ -4,15 +4,15 @@
 @using Christoc.Modules.Chart.Models
 @{
     var cities = ViewBag.Cities as List<GetCityAll>;
-    var selectY = ViewBag.SelectY as List<GetChart>;
+    var selectXY = ViewBag.SelectXY as List<GetChart>;
 }
 
 
 <fieldset>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Chọn chủ đề:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;">
+            <div class="col-sm-3 custom-label"  > <label for="cars">Chọn chủ đề:</label></div>
+            <div class="col-sm-9 custom-label"  >
                 <select id="IdCities" class="form-control" href="javascript:;" onchange="showPerson(this.value)">
                     @foreach (var item in cities)
                     {
@@ -23,8 +23,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Loại biểu đồ:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;">
+            <div class="col-sm-3 custom-label"  ><label for="cars">Loại biểu đồ:</label></div>
+            <div class="col-sm-9 custom-label"  >
                 <label class="radio-inline">
                     <input type="radio" name="typechart" checked value="column">Cột
                 </label>
@@ -43,48 +43,54 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Tên biểu đồ:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>
+            @*<div class="col-sm-3 custom-label">@Html.LabelFor(m => Model.Setting2, new { @class = "col-sm-3 custom-label" })</div>*@
+            <div class="col-sm-3 custom-label"> <label for="cars">Tên biểu đồ:</label></div>
+            <div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Mô tả biểu đồ:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>
+            <div class="col-sm-3 custom-label"  > <label for="cars">Mô tả biểu đồ:</label></div>
+            <div class="col-sm-9 custom-label"  ><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"> <label for="cars">Tên AxisX:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>
+            <div class="col-sm-3 custom-label"  > <label for="cars">Tên AxisX:</label></div>
+            <div class="col-sm-9 custom-label"  ><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Tên AxisY:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;"><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>
+            <div class="col-sm-3 custom-label"  ><label for="cars">Tên AxisY:</label></div>
+            <div class="col-sm-9 custom-label"  ><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Chọn AxisX:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;">
-                <select id="selectX" class="form-control" >
-                    <option value="Bootstrap">Bootstrap Tips</option>
-                    <option value="HTML">HTML</option>
-                    <option value="CSS">CSS tricks</option>
-                    <option value="angular">Angular JS</option>
+            <div class="col-sm-3 custom-label"  ><label for="cars">Chọn AxisX:</label></div>
+            <div class="col-sm-9 custom-label"  >
+                <select id="selectX" class="form-control">
+                        <option value="IdCity">IdCity</option>
+                        <option value="CityName">CityName</option>
+                        <option value="Gender">Gender</option>
+                        <option value="Amount">Amount</option>
                 </select>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Chọn AxisY:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;">
-                <select id="selectY" multiple="multiple" class="multipleselect2">
-                    @foreach (var item in cities)
+            <div class="col-sm-3 custom-label"  ><label for="cars">Chọn AxisY:</label></div>
+            <div class="col-sm-9 custom-label"  >
+                <select id="selectY" multiple="multiple" class="multipleselect2" >
+                    @foreach(var item in selectXY)
                     {
-                        <option value="@item.IdCity">@item.CityName</option>
+                         <option value="@item.IdCity">@item.CityName</option>
+                          <option value="@item.Gender">@item.Gender</option>
                     }
+                    @*<option value="IdCity">IdCity</option>
+                    <option value="CityName">CityName</option>
+                    <option value="Gender">Gender</option>
+                    <option value="Amount">Amount</option>*@
                 </select>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3" style="margin-top:12px;"><label for="cars">Bài viết cùng chủ đề:</label></div>
-            <div class="col-sm-9" style="margin-top:12px;">
+            <div class="col-sm-3 custom-label"  ><label for="cars">Bài viết cùng chủ đề:</label></div>
+            <div class="col-sm-9 custom-label"  >
                 <select id="selectPerson" multiple="multiple" class="multipleselect2">
-                    @*<option value="Bootstrap">Bootstrap Tips</option>*@
+      
                 </select>
             </div>
         </div>
@@ -164,35 +170,10 @@
 
         //    });
         //}
-        
-
+       
     });
+
     
-    //var pageSettings = function () {
-    //    var Page = pageSettings;
-    //    var chart;
-    //    var idCities = $('#IdCities').val();
-    //    var siteRoot = dnn.getVar("sf_siteRoot", "/");
-    //    function requestData() {
-    //        var AxisY = [];
-    //        var AxisX = [];
-    //        $('#AXisY option:selected').each(function () {
-    //            AxisY.push($(this).val());
-    //        });
-    //        if ($('#selectPerson option:selected').length > 0) {
-    //            $('#selectPerson option:selected').each(function () {
-    //                AxisX.push($(this).val());
-    //            });
-    //        }
-    //        else {
-    //            AxisX.push(articleId);
-    //        }
-    //}
-
-    //$(function () {
-    //    pageSettings();
-    //});
-
 </script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -211,6 +192,9 @@
 
     .row {
         display: contents;
+    }
+    .custom-label {
+        margin-top: 12px;
     }
 </style>
 

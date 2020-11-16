@@ -201,64 +201,9 @@ namespace Christoc.Modules.Chart.Controllers
 
         }
 
-        //public ActionResult CreateChart(DetailChart detailChart)
-        //{
-        //    ItemManager.Instance.CreateChart(detailChart);
-        //    return RedirectToDefaultRoute();
-
-        //}
-        
-        //[HttpPost]
-        //public ActionResult Create(DetailChart detailChart)
-        //{
-              
-        //    if (ModelState.IsValid)
-        //    {
-                
-               
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(detailChart);
-        //}
+      
     }
 }
 
 
 
-//List<GetChart> charts = new List<GetChart>();
-//if (listCharts != null && listCharts.Count() > 0)
-//{
-//    foreach (var item in listCharts)
-//    {
-//        charts.Add(new GetChart { Gender = item.Gender, Amount = item.Amount });
-//    }
-//}
-
-
-//try
-//{
-//    List<GetChart> charts = new List<GetChart>();
-//    charts.Add(new GetChart { Gender = "Male", Amount = 5 });
-//    charts.Add(new GetChart { Gender = "Female", Amount = 30 });
-//    charts.Add(new GetChart { Gender = "Other", Amount = 70 });
-
-//    return Json(new { data = JsonConvert.SerializeObject(charts, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-//}
-//catch (Exception e)
-//{
-//    throw e;
-//}
-
-
-//[HttpPost]
-//public JsonResult SaveEmployee(Employee employee)
-//{
-//   return
-
-//}
-//public JsonResult GetEmployees()
-//{
-//    var listEmployee = ItemManager.Instance.GetEmployees();
-//    return Json(new { data = JsonConvert.SerializeObject(listEmployee, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-//}
