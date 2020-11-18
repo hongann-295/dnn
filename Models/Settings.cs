@@ -20,5 +20,9 @@ namespace Christoc.Modules.Chart.Models
     {
         public bool Setting1 { get; set; }
         public DateTime Setting2 { get; set; }
+        public int IdCity { get; set; }
     }
+    
+
+   
 }

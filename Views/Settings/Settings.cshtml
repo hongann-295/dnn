@@ -1,18 +1,40 @@
-﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Christoc.Modules.Chart.Models.Settings>
+﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Christoc.Modules.Chart.Models.GetPerson>
 
 @using DotNetNuke.Web.Mvc.Helpers
 @using Christoc.Modules.Chart.Models
 @{
     var cities = ViewBag.Cities as List<GetCityAll>;
-    var selectXY = ViewBag.SelectXY as List<GetChart>;
+    var listfield = ViewBag.ListField;
 }
 
 
 <fieldset>
+
+    <div class="dnnFormItem">
+        <div class="dnnLabel" style="position: relative;">
+            @Html.LabelFor(m => Model.IdCity, new { @class = "col-md-2 control-label" })
+        </div>
+        @Html.DropDownListFor(m => Model.IdCity,
+            new SelectList(Enum.GetValues(typeof(CityAll))),
+            "Select City")
+        @*@Html.DropDownList("Thanh Pho", (IEnumerable<GetCityAll>) ViewBag.Cities, new { @class = "form-control" })*@
+    </div>
+    <div class="dnnFormItem">
+        <div class="dnnLabel" style="position: relative;">
+            @Html.LabelFor(m => Model.CityName, new { @class = "col-md-2 control-label" })
+        </div>
+        @Html.TextBoxFor(m => Model.CityName)
+    </div>
+    <div class="dnnFormItem">
+        <div class="dnnLabel" style="position: relative;">
+            @Html.LabelFor(m => Model.Age, new { @class = "col-md-2 control-label" })
+        </div>
+        @Html.TextBoxFor(m => Model.Age)
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 custom-label"  > <label for="cars">Chọn chủ đề:</label></div>
-            <div class="col-sm-9 custom-label"  >
+            <div class="col-sm-3 custom-label"> <label for="cars">Chọn chủ đề:</label></div>
+            <div class="col-sm-9 custom-label">
                 <select id="IdCities" class="form-control" href="javascript:;" onchange="showPerson(this.value)">
                     @foreach (var item in cities)
                     {
@@ -23,8 +45,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3 custom-label"  ><label for="cars">Loại biểu đồ:</label></div>
-            <div class="col-sm-9 custom-label"  >
+            <div class="col-sm-3 custom-label"><label for="cars">Loại biểu đồ:</label></div>
+            <div class="col-sm-9 custom-label">
                 <label class="radio-inline">
                     <input type="radio" name="typechart" checked value="column">Cột
                 </label>
@@ -45,53 +67,51 @@
         <div class="row">
             @*<div class="col-sm-3 custom-label">@Html.LabelFor(m => Model.Setting2, new { @class = "col-sm-3 custom-label" })</div>*@
             <div class="col-sm-3 custom-label"> <label for="cars">Tên biểu đồ:</label></div>
-            <div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>
+            @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>*@
+            <div class="col-sm-9 custom-label"> @Html.TextBoxFor(m => Model.TenBieuDo)</div>
         </div>
         <div class="row">
-            <div class="col-sm-3 custom-label"  > <label for="cars">Mô tả biểu đồ:</label></div>
-            <div class="col-sm-9 custom-label"  ><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>
+            <div class="col-sm-3 custom-label"> <label for="cars">Mô tả biểu đồ:</label></div>
+            @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>*@
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.MoTaBieuDo)</div>
         </div>
         <div class="row">
-            <div class="col-sm-3 custom-label"  > <label for="cars">Tên AxisX:</label></div>
-            <div class="col-sm-9 custom-label"  ><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>
+            <div class="col-sm-3 custom-label"> <label for="cars">Tên AxisX:</label></div>
+            @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>*@
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.TenX)</div>
         </div>
         <div class="row">
-            <div class="col-sm-3 custom-label"  ><label for="cars">Tên AxisY:</label></div>
-            <div class="col-sm-9 custom-label"  ><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>
+            <div class="col-sm-3 custom-label"><label for="cars">Tên AxisY:</label></div>
+            @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>*@
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.TenY)</div>
         </div>
         <div class="row">
-            <div class="col-sm-3 custom-label"  ><label for="cars">Chọn AxisX:</label></div>
-            <div class="col-sm-9 custom-label"  >
+            <div class="col-sm-3 custom-label"><label for="cars">Chọn AxisX:</label></div>
+            <div class="col-sm-9 custom-label">
                 <select id="selectX" class="form-control">
-                        <option value="IdCity">IdCity</option>
-                        <option value="CityName">CityName</option>
-                        <option value="Gender">Gender</option>
-                        <option value="Amount">Amount</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3 custom-label"  ><label for="cars">Chọn AxisY:</label></div>
-            <div class="col-sm-9 custom-label"  >
-                <select id="selectY" multiple="multiple" class="multipleselect2" >
-                    @foreach(var item in selectXY)
+                    @foreach (var item in listfield)
                     {
-                         <option value="@item.IdCity">@item.CityName</option>
-                          <option value="@item.Gender">@item.Gender</option>
+                        <option value="@item.name">@item.name</option>
                     }
-                    @*<option value="IdCity">IdCity</option>
-                    <option value="CityName">CityName</option>
-                    <option value="Gender">Gender</option>
-                    <option value="Amount">Amount</option>*@
+
                 </select>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3 custom-label"  ><label for="cars">Bài viết cùng chủ đề:</label></div>
-            <div class="col-sm-9 custom-label"  >
-                <select id="selectPerson" multiple="multiple" class="multipleselect2">
-      
+            <div class="col-sm-3 custom-label"><label for="cars">Chọn AxisY:</label></div>
+            <div class="col-sm-9 custom-label">
+                <select id="selectY" multiple="multiple" class="multipleselect2">
+                    @foreach (var item in listfield)
+                    {
+                        <option value="@item.name">@item.name</option>
+                    }
                 </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 custom-label"><label for="cars">Bài viết cùng chủ đề:</label></div>
+            <div class="col-sm-9 custom-label">
+                <select id="selectPerson" multiple="multiple" class="multipleselect2"></select>
             </div>
         </div>
     </div>
@@ -123,11 +143,8 @@
                     "RequestVerificationToken": rvtoken
                 },
                 success: function (data) {
-                    //alert(data);
                     var result = [];
                     var persons = JSON.parse(data.data);
-                    //alert(persons.Name);
-                    //console.log(persons);
                     $(`#selectPerson`).empty();
                     for (var i = 0; i < persons.length; i++) {
                         $('#selectPerson').append(`<option value=${persons[i].Id}>${persons[i].Name}</option>`)
@@ -143,8 +160,37 @@
                
             });
         }
-        //showX = function () {
-        //    //$("#selectPerson").removeClass('multipleselect2');
+
+        //showX = function (id) {
+        //    $.ajax({
+        //        url: siteRoot + 'DesktopModules/MVC/Chart/Settings/GetPersons',
+        //        method: "GET",
+        //        contentType: "application/json; charset=utf-8", dataType: "json",
+        //        dataType: "json",
+        //        data: { id: id },
+        //        headers: {
+        //            "ModuleId": ModuleId,
+        //            "TabId": TabId,
+        //            "RequestVerificationToken": rvtoken
+        //        },
+        //        success: function (data) {
+        //            var persons = JSON.parse(data.data);
+        //            //alert(persons.Name);
+        //            console.log(persons);
+        //            $(`#selectX`).empty();
+        //            //for (var i = 0; i < persons.length; i++) {
+        //            //    $('#selectX').append(`<option value=${persons[i].Id}>Id</option>`)
+        //            //    console.log(persons[i].Id);
+        //            //}
+        //            $('#selectX').append(`<option value=Id>Id</option>`)
+        //            $('#selectX').append(`<option value=Name>Name</option>`)
+                    
+        //        }
+        //    });
+        //}
+
+        //showY = function (id) {
+        //    $("#selectY").removeClass('multipleselect2');
         //    $.ajax({
         //        url: siteRoot + 'DesktopModules/MVC/Chart/Settings/GetPersons',
         //        method: "GET",
@@ -161,17 +207,23 @@
         //            var persons = JSON.parse(data.data);
         //            //alert(persons.Name);
         //            console.log(persons);
-        //            $(`#selectX`).empty();
-        //            for (var i = 0; i < persons.length; i++) {
-        //                // alert(persons[i].Name);
-        //                $('#selectX').append(`<option value=${persons[i].Id}>${persons[i].Name}</option>`)
-        //            }
+        //            $(`#selectY`).empty();
+        //            $('#selectY').append(`<option value=${persons.Age}>Age</option>`)
+        //            $('#selectY').append(`<option value=${persons.Gender}>Gender</option>`)
+        //            $('#selectY').multiselect('rebuild');
+        //            $('.multipleselect2').multiselect({
+        //                includeSelectAllOption: true,
+        //                nonSelectedText: '--Chọn--',
+        //                buttonWidth: 350,
+        //                enableFiltering: true
+        //            });
         //        }
 
         //    });
         //}
-       
     });
+
+    
 
     
 </script>

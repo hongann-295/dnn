@@ -22,6 +22,9 @@ using System.Collections.Generic;
 using DotNetNuke.Entities.Modules;
 using System;
 using System.Linq.Expressions;
+using System.Data.SqlClient;
+using System.Data.OleDb;
+using System.Data;
 
 namespace Christoc.Modules.Chart.Controllers
 {
@@ -36,20 +39,17 @@ namespace Christoc.Modules.Chart.Controllers
         [HttpGet]
         public ActionResult Settings()
         {
-            var settings = new Models.Settings();
-            settings.Setting1 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting1", false);
-            settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
+            //var settings = new Models.Settings();
+            //settings.Setting1 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting1", true);
+            //settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
+            //settings.IdCity = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_IdCity", 1);
+            var settingsChart = new Models.GetPerson();
+            settingsChart.CityName = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_CityName", "Hue");
+            settingsChart.Age = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Age", 1);
             ViewBag.Cities = ItemManager.Instance.Cities();
-            ViewBag.SelectXY = ItemManager.Instance.GetCharts();
-            return View(settings);
+            ViewBag.ListField = ItemManager.Instance.GetFields();
+            return View(settingsChart);
         }
-
-        //[HttpGet]
-        //public JsonResult GetCity()
-        //{
-        //    var cities = ItemManager.Instance.Cities();
-        //    return Json(new { data = JsonConvert.SerializeObject(cities, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpGet]
         public JsonResult GetPersons(int id)
@@ -58,8 +58,15 @@ namespace Christoc.Modules.Chart.Controllers
             return Json(new { data = JsonConvert.SerializeObject(person, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
         }
 
-        
+        [HttpGet]
+        public JsonResult GetPersonById(int id)
+        {
+            var person = ItemManager.Instance.GetPersonById(id);
+            return Json(new { data = JsonConvert.SerializeObject(person, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+        }
 
+       
+       
 
         /// <summary>
         /// 
@@ -69,10 +76,18 @@ namespace Christoc.Modules.Chart.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [DotNetNuke.Web.Mvc.Framework.ActionFilters.ValidateAntiForgeryToken]
-        public ActionResult Settings(Models.Settings settings)
+        public ActionResult Settings(Models.GetPerson settingsChart)
         {
-            ModuleContext.Configuration.ModuleSettings["Chart_Setting1"] = settings.Setting1.ToString();
-            ModuleContext.Configuration.ModuleSettings["Chart_Setting2"] = settings.Setting2.ToUniversalTime().ToString("u");
+            
+            //ModuleContext.Configuration.ModuleSettings["Chart_Setting1"] = settings.Setting1.ToString();
+            //ModuleContext.Configuration.ModuleSettings["Chart_Setting2"] = settings.Setting2.ToUniversalTime().ToString("u");
+            ModuleContext.Configuration.ModuleSettings["Chart_IdCity2"] = settingsChart.IdCity.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_CityName"] = settingsChart.CityName.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_Age"] = settingsChart.Age.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_TenBieuDo"] = settingsChart.TenBieuDo.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_MoTaBieuDo"] = settingsChart.MoTaBieuDo.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_TenX"] = settingsChart.TenX.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_Teny"] = settingsChart.TenY.ToString();
 
             return RedirectToDefaultRoute();
         }

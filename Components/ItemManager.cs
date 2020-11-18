@@ -37,6 +37,10 @@ namespace Christoc.Modules.Chart.Components
         IEnumerable<Employee> GetEmployees();
         DeleteResult DeleteEmployee(int Id);
         void CreateChart(DetailChart detailChart);
+        GetPerson GetPersonId(int personId);
+        IEnumerable<GetPerson> GetPersonsAll();
+        GetPerson GetPersonById(int IdPerson);
+        IEnumerable<GetField> GetFields();
     }
 
     class ItemManager : ServiceLocator<IItemManager, ItemManager>, IItemManager
@@ -140,14 +144,6 @@ namespace Christoc.Modules.Chart.Components
             }
         }
 
-        //public bool IItemManager.SaveEmployee(Employee employee)
-        //{
-        //    using (IDataContext ctx = DataContext.Instance())
-        //    {
-        //        ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2"));
-        //        return true; //ctx.ExecuteQuery<Employee>(System.Data.CommandType.StoredProcedure, String.Format("Sp_SaveEmployee2 {0}", new object[] {employee.Id, employee.Name, employee.Gender } ));
-        //    }
-        //}
 
         public void SaveEmployee(Employee employee)
         {
@@ -180,6 +176,40 @@ namespace Christoc.Modules.Chart.Components
             using (IDataContext ctx = DataContext.Instance())
             {
                 return ctx.ExecuteQuery<GetPerson>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetPersonByIdCity {0}", Id)).ToList();
+            }
+        }
+
+        public GetPerson GetPersonId(int personId)
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                IEnumerable<GetPerson> x = ctx.ExecuteQuery<GetPerson>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetEmployeeById2 {0}",personId));
+                return x.FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<GetPerson> GetPersonsAll()
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                return ctx.ExecuteQuery<GetPerson>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetPersons"));
+            }
+        }
+
+        public GetPerson GetPersonById(int IdPerson)
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                IEnumerable<GetPerson> x = ctx.ExecuteQuery<GetPerson>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetPersonByIdCityId {0}", IdPerson));
+                return x.FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<GetField> GetFields()
+        {
+            using (IDataContext ctx = DataContext.Instance())
+            {
+                return ctx.ExecuteQuery<GetField>(System.Data.CommandType.StoredProcedure, String.Format("Sp_GetFeild"));
             }
         }
     }

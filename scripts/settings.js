@@ -1,30 +1,30 @@
-﻿var pageArticle = function () {
-    var Page = pageArticle;
+﻿var pageChart = function () {
+    var Page = pageChart;
     var chart;
-    var articleId = $('#ArticleId').val();
+    var cityId = $('#IdCities').val();
     var siteRoot = dnn.getVar("sf_siteRoot", "/");
     function requestData() {
         var AxisY = [];
         var AxisX = [];
-        $('#AXisY option:selected').each(function () {
+        $('#selectY option:selected').each(function () {
             AxisY.push($(this).val());
         });
-        if ($('#ArticleInTopic option:selected').length > 0) {
-            $('#ArticleInTopic option:selected').each(function () {
+        if ($('#selectPerson option:selected').length > 0) {
+            $('#selectPerson option:selected').each(function () {
                 AxisX.push($(this).val());
             });
         }
         else {
-            AxisX.push(articleId);
+            AxisX.push(cityId);
         }
         var car = [];
         if (AxisY != "") {
             $.ajax({
-                url: Page.urls.chart,
+                url: siteRoot + 'DesktopModules/MVC/Chart/Item/GetResults',
                 type: "POST",
                 dataType: "json",
                 data: {
-                    articleId: articleId, AXisX: '' + AxisX + '', AxisY: '' + AxisY + '', Cater: $('#AXisX option:selected').val()
+                    cityId: cityId, AXisX: '' + AxisX + '', AxisY: '' + AxisY + '', Cater: $('#selectX option:selected').val()
                 },
                 headers: {
                     "ModuleId": $('#ModuleId').val(),
@@ -54,7 +54,7 @@
         else { alertify.error('Dữ liệu để vẻ biểu đồ chưa đầy đủ, vui lòng kiểm tra lại!'); }
     }
     Page.ShowChart = function (e) {
-        var types = $('#child-datatopicTab').find('li a.active').attr('id'); //$(this).attr('id');
+        var types = $('#selectChartId').find('li a.active').attr('id'); //$(this).attr('id');
         //alert(types);
         chart = new Highcharts.Chart({
             chart: {
@@ -65,21 +65,21 @@
                 }
             },
             title: {
-                text: $('.name-chart').val(),
+                text: $('#name-chart').val(),
             },
             subtitle: {
-                text: $('.sub-title').val()
+                text: $('#des-chart').val()
             },
             xAxis: {
                 title: {
-                    text: $('.name-x').val()
+                    text: $('#name-x').val()
                 },
                 categories: []
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: $('.name-y').val()
+                    text: $('#name-y').val()
                 }
             },
             plotOptions: {
