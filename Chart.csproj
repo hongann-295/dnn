@@ -130,6 +130,7 @@
     <Compile Include="Models\GetCityAll.cs" />
     <Compile Include="Models\GetField.cs" />
     <Compile Include="Models\GetPerson.cs" />
+    <Compile Include="Models\GetSettingsChart.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Models\SaveResult.cs" />

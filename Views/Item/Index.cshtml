@@ -179,34 +179,74 @@
 
     var chart;
     $(document).ready(function () {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container',
-                type: 'column',
-                events: {
-                    load: requestData
-                }
+         var rvtoken = $("input[name='__RequestVerificationToken']").val();
+        var ModuleId = @Dnn.ModuleContext.ModuleId;
+        var TabId = @Dnn.ModuleContext.TabId;
+        var siteRoot = dnn.getVar("sf_siteRoot", "/");
+        var SettingsName;
+        var TenBieuDo = [];
+        var MotaBieuDo = [];
+        var TenX = [];
+        var TenY = [];
+        $.ajax({
+            url: siteRoot + 'DesktopModules/MVC/Chart/Item/GetSettingsChart',
+            method: "GET",
+            dataType: "json",
+            headers: {
+                "ModuleId": ModuleId,
+                "TabId": TabId,
+                "RequestVerificationToken": rvtoken
             },
-            title: {
-                text: $('#name-chart').val(),
-            },
-            xAxis: {
-                categories: []
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Amount'
-                }
+            success: function (data) {
+                SettingsName = data.data;
+                var obj = JSON.parse(SettingsName);
+                MotaBieuDo.push(obj[0].SettingValue);
+                TenBieuDo.push(obj[1].SettingValue);
+                TenX.push(obj[2].SettingValue);
+                TenY.push(obj[3].SettingValue);
+                //for (var i = 0; i < obj.length; i++) {
+                //    TenBieuDo.push(obj[i].SettingValue);
+                //    MotaBieuDo.push(obj[i].SettingValue);
+                //}
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container',
+                        type: 'column',
+                        events: {
+                            load: requestData
+                        }
+                    },
+                    title: {
+                        text: TenBieuDo,
+                    },
+                    subtitle: {
+                        text: MotaBieuDo
+                    },
+                    xAxis: {
+                        title: {
+                            text: TenX
+                        },
+                        categories: []
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: TenY
+                        }
+                    }
+                    , plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: []
+                });
             }
-            , plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: []
-        });
+        })
+        
+
+       
     });
 
     function requestData() {

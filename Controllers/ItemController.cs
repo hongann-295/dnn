@@ -97,6 +97,14 @@ namespace Christoc.Modules.Chart.Controllers
         //}
 
         [HttpGet]
+        public JsonResult GetSettingsChart()
+        {
+            var settingsChart = ItemManager.Instance.GetSettings();
+            return Json(new { data = JsonConvert.SerializeObject(settingsChart, Formatting.Indented) }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
         public JsonResult GetResults()
         {
             var listCharts = ItemManager.Instance.GetCharts();

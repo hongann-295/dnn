@@ -3,34 +3,22 @@
 @using DotNetNuke.Web.Mvc.Helpers
 @using Christoc.Modules.Chart.Models
 @{
-    var cities = ViewBag.Cities as List<GetCityAll>;
+    IEnumerable<GetCityAll> cities = ViewBag.Cities;
     var listfield = ViewBag.ListField;
 }
 
 
 <fieldset>
 
-    <div class="dnnFormItem">
+    @*<div class="dnnFormItem">
         <div class="dnnLabel" style="position: relative;">
-            @Html.LabelFor(m => Model.IdCity, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => Model.IdCity,"Id City", new { @class = "col-md-2 control-label" })
         </div>
         @Html.DropDownListFor(m => Model.IdCity,
             new SelectList(Enum.GetValues(typeof(CityAll))),
             "Select City")
-        @*@Html.DropDownList("Thanh Pho", (IEnumerable<GetCityAll>) ViewBag.Cities, new { @class = "form-control" })*@
-    </div>
-    <div class="dnnFormItem">
-        <div class="dnnLabel" style="position: relative;">
-            @Html.LabelFor(m => Model.CityName, new { @class = "col-md-2 control-label" })
-        </div>
-        @Html.TextBoxFor(m => Model.CityName)
-    </div>
-    <div class="dnnFormItem">
-        <div class="dnnLabel" style="position: relative;">
-            @Html.LabelFor(m => Model.Age, new { @class = "col-md-2 control-label" })
-        </div>
-        @Html.TextBoxFor(m => Model.Age)
-    </div>
+        @Html.DropDownList("Ctiy", cities, "Select City", new { onchange = "showPerson(this.value)" })
+    </div>*@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 custom-label"> <label for="cars">Chọn chủ đề:</label></div>
@@ -83,7 +71,7 @@
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Tên AxisY:</label></div>
             @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>*@
-            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.TenY)</div>
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(mbox => Model.TenY)</div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Chọn AxisX:</label></div>
@@ -93,7 +81,6 @@
                     {
                         <option value="@item.name">@item.name</option>
                     }
-
                 </select>
             </div>
         </div>

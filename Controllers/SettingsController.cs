@@ -44,8 +44,6 @@ namespace Christoc.Modules.Chart.Controllers
             //settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
             //settings.IdCity = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_IdCity", 1);
             var settingsChart = new Models.GetPerson();
-            settingsChart.CityName = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_CityName", "Hue");
-            settingsChart.Age = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Age", 1);
             ViewBag.Cities = ItemManager.Instance.Cities();
             ViewBag.ListField = ItemManager.Instance.GetFields();
             return View(settingsChart);
@@ -81,13 +79,11 @@ namespace Christoc.Modules.Chart.Controllers
             
             //ModuleContext.Configuration.ModuleSettings["Chart_Setting1"] = settings.Setting1.ToString();
             //ModuleContext.Configuration.ModuleSettings["Chart_Setting2"] = settings.Setting2.ToUniversalTime().ToString("u");
-            ModuleContext.Configuration.ModuleSettings["Chart_IdCity2"] = settingsChart.IdCity.ToString();
-            ModuleContext.Configuration.ModuleSettings["Chart_CityName"] = settingsChart.CityName.ToString();
-            ModuleContext.Configuration.ModuleSettings["Chart_Age"] = settingsChart.Age.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_TenY"] = settingsChart.TenY.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_TenX"] = settingsChart.TenX.ToString();
             ModuleContext.Configuration.ModuleSettings["Chart_TenBieuDo"] = settingsChart.TenBieuDo.ToString();
             ModuleContext.Configuration.ModuleSettings["Chart_MoTaBieuDo"] = settingsChart.MoTaBieuDo.ToString();
-            ModuleContext.Configuration.ModuleSettings["Chart_TenX"] = settingsChart.TenX.ToString();
-            ModuleContext.Configuration.ModuleSettings["Chart_Teny"] = settingsChart.TenY.ToString();
+            //ModuleContext.Configuration.ModuleSettings["Chart_TenY"] = settingsChart.TenY.ToString();
 
             return RedirectToDefaultRoute();
         }
