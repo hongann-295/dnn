@@ -2,53 +2,67 @@
 
 @using DotNetNuke.Web.Mvc.Helpers
 @using Christoc.Modules.Chart.Models
+@using System.Web.Mvc
+@using System.Data.Entity
+@*@using System.Web.WebPages.Html*@
+
 @{
-    IEnumerable<GetCityAll> cities = ViewBag.Cities;
-    var listfield = ViewBag.ListField;
+    var cities = ViewBag.Cities as List<GetCityAll>;
+    //var listfield = ViewBag.ListField;
 }
 
 
 <fieldset>
 
     @*<div class="dnnFormItem">
-        <div class="dnnLabel" style="position: relative;">
-            @Html.LabelFor(m => Model.IdCity,"Id City", new { @class = "col-md-2 control-label" })
-        </div>
-        @Html.DropDownListFor(m => Model.IdCity,
-            new SelectList(Enum.GetValues(typeof(CityAll))),
-            "Select City")
-        @Html.DropDownList("Ctiy", cities, "Select City", new { onchange = "showPerson(this.value)" })
-    </div>*@
+            <div class="dnnLabel" style="position: relative;">
+                @Html.LabelFor(m => Model.IdCity,"Id City", new { @class = "col-md-2 control-label" })
+            </div>
+            @Html.DropDownListFor(m => Model.IdCity,
+                new SelectList(Enum.GetValues(typeof(CityAll))),
+                "Select City")
+        </div>*@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 custom-label"> <label for="cars">Chọn chủ đề:</label></div>
             <div class="col-sm-9 custom-label">
-                <select id="IdCities" class="form-control" href="javascript:;" onchange="showPerson(this.value)">
+                @Html.DropDownListFor(m => Model.IdCity, (SelectList)ViewBag.Cities, "Select City", new { @onchange = "showPerson(this.value)", @class = "form-control" })
+                @*<select id="IdCities" class="form-control" href="javascript:;" onchange="showPerson(this.value)">
                     @foreach (var item in cities)
                     {
                         <option value="@item.IdCity">@item.CityName</option>
                     }
 
-                </select>
+                </select>*@
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Loại biểu đồ:</label></div>
             <div class="col-sm-9 custom-label">
                 <label class="radio-inline">
-                    <input type="radio" name="typechart" checked value="column">Cột
+                    @*<input type="radio" name="typechart" checked value="column">Cột*@
+                    @Html.RadioButtonFor(m => Model.SelectType, "Column", new { @checked = true })
+                    @Html.LabelFor(m => Model.SelectType, "Cột")
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="typechart" value="line" />Đường
+                    @*<input type="radio" name="typechart" value="line" />Đường*@
+                    @Html.RadioButtonFor(m => Model.SelectType, "line")
+                    @Html.LabelFor(m => Model.SelectType, "Đường")
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="typechart" value="bar" />Bar
+                    @*<input type="radio" name="typechart" value="bar" />Bar*@
+                    @Html.RadioButtonFor(m => Model.SelectType, "bar")
+                    @Html.LabelFor(m => Model.SelectType, "Bar")
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="typechart" value="area" />Vùng
+                    @*<input type="radio" name="typechart" value="area" />Vùng*@
+                    @Html.RadioButtonFor(m => Model.SelectType, "area")
+                    @Html.LabelFor(m => Model.SelectType, "Vùng")
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="typechart" value="spline" />Point
+                    @*<input type="radio" name="typechart" value="spline" />Point*@
+                    @Html.RadioButtonFor(m => Model.SelectType, "spline")
+                    @Html.LabelFor(m => Model.SelectType, "Point")
                 </label>
             </div>
         </div>
@@ -56,49 +70,54 @@
             @*<div class="col-sm-3 custom-label">@Html.LabelFor(m => Model.Setting2, new { @class = "col-sm-3 custom-label" })</div>*@
             <div class="col-sm-3 custom-label"> <label for="cars">Tên biểu đồ:</label></div>
             @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-chart"></div>*@
-            <div class="col-sm-9 custom-label"> @Html.TextBoxFor(m => Model.TenBieuDo)</div>
+            <div class="col-sm-9 custom-label"> @Html.TextBoxFor(m => Model.TenBieuDo, new { @class = "col-sm-9 custom-label" })</div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"> <label for="cars">Mô tả biểu đồ:</label></div>
             @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="des-chart"></div>*@
-            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.MoTaBieuDo)</div>
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.MoTaBieuDo, new { @class = "col-sm-9 custom-label" })</div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"> <label for="cars">Tên AxisX:</label></div>
             @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-X"></div>*@
-            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.TenX)</div>
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.TenX, new { @class = "col-sm-9 custom-label" })</div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Tên AxisY:</label></div>
             @*<div class="col-sm-9 custom-label"><input type="text" class="form-control mb-2 mr-sm-2" id="name-Y"></div>*@
-            <div class="col-sm-9 custom-label">@Html.TextBoxFor(mbox => Model.TenY)</div>
+            <div class="col-sm-9 custom-label">@Html.TextBoxFor(m => Model.TenY, new { @class = "col-sm-9 custom-label" })</div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Chọn AxisX:</label></div>
             <div class="col-sm-9 custom-label">
-                <select id="selectX" class="form-control">
-                    @foreach (var item in listfield)
-                    {
-                        <option value="@item.name">@item.name</option>
-                    }
-                </select>
+                @Html.DropDownListFor(m => Model.name, (SelectList)ViewBag.ListField, "Select X",new { @class = "form-control" })
+                @*<select id="selectX" class="form-control">
+                        @foreach (var item in listfield)
+                        {
+                            <option value="@item.name">@item.name</option>
+                        }
+                    </select>*@
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Chọn AxisY:</label></div>
             <div class="col-sm-9 custom-label">
-                <select id="selectY" multiple="multiple" class="multipleselect2">
-                    @foreach (var item in listfield)
-                    {
-                        <option value="@item.name">@item.name</option>
-                    }
-                </select>
+                 @Html.ListBoxFor(m => Model.TenY, ( MultiSelectList )ViewBag.ListField, new { @class = "multipleselect2", @id = "selectY" })
+                @*@Html.DropDownListFor(m => Model.name, (SelectList)ViewBag.ListField, "Select Y",new { @class = "form-control" })*@
+                @*<select id="selectY" multiple="multiple" class="multipleselect2">
+                        @foreach (var item in listfield)
+                        {
+                            <option value="@item.name">@item.name</option>
+                        }
+                    </select>*@
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3 custom-label"><label for="cars">Bài viết cùng chủ đề:</label></div>
             <div class="col-sm-9 custom-label">
-                <select id="selectPerson" multiple="multiple" class="multipleselect2"></select>
+                @Html.ListBoxFor(m => Model.SelectTopic, ( MultiSelectList )ViewBag.ListField, new { @class = "multipleselect2", @id = "selectPerson" })
+                @*@Html.DropDownListFor(m => Model.SelectTopic, (SelectList)ViewBag.ListField, "Select",new { @class = "form-control", @id = "selectPerson" })*@
+                @*<select id="selectPerson" multiple="multiple" class="multipleselect2"></select>*@
             </div>
         </div>
     </div>
@@ -144,75 +163,14 @@
                         enableFiltering: true
                     });
                 }
-               
+
             });
         }
-
-        //showX = function (id) {
-        //    $.ajax({
-        //        url: siteRoot + 'DesktopModules/MVC/Chart/Settings/GetPersons',
-        //        method: "GET",
-        //        contentType: "application/json; charset=utf-8", dataType: "json",
-        //        dataType: "json",
-        //        data: { id: id },
-        //        headers: {
-        //            "ModuleId": ModuleId,
-        //            "TabId": TabId,
-        //            "RequestVerificationToken": rvtoken
-        //        },
-        //        success: function (data) {
-        //            var persons = JSON.parse(data.data);
-        //            //alert(persons.Name);
-        //            console.log(persons);
-        //            $(`#selectX`).empty();
-        //            //for (var i = 0; i < persons.length; i++) {
-        //            //    $('#selectX').append(`<option value=${persons[i].Id}>Id</option>`)
-        //            //    console.log(persons[i].Id);
-        //            //}
-        //            $('#selectX').append(`<option value=Id>Id</option>`)
-        //            $('#selectX').append(`<option value=Name>Name</option>`)
-                    
-        //        }
-        //    });
-        //}
-
-        //showY = function (id) {
-        //    $("#selectY").removeClass('multipleselect2');
-        //    $.ajax({
-        //        url: siteRoot + 'DesktopModules/MVC/Chart/Settings/GetPersons',
-        //        method: "GET",
-        //        contentType: "application/json; charset=utf-8", dataType: "json",
-        //        dataType: "json",
-        //        data: { id: id },
-        //        headers: {
-        //            "ModuleId": ModuleId,
-        //            "TabId": TabId,
-        //            "RequestVerificationToken": rvtoken
-        //        },
-        //        success: function (data) {
-        //            //alert(data);
-        //            var persons = JSON.parse(data.data);
-        //            //alert(persons.Name);
-        //            console.log(persons);
-        //            $(`#selectY`).empty();
-        //            $('#selectY').append(`<option value=${persons.Age}>Age</option>`)
-        //            $('#selectY').append(`<option value=${persons.Gender}>Gender</option>`)
-        //            $('#selectY').multiselect('rebuild');
-        //            $('.multipleselect2').multiselect({
-        //                includeSelectAllOption: true,
-        //                nonSelectedText: '--Chọn--',
-        //                buttonWidth: 350,
-        //                enableFiltering: true
-        //            });
-        //        }
-
-        //    });
-        //}
     });
 
-    
 
-    
+
+
 </script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -232,8 +190,12 @@
     .row {
         display: contents;
     }
+
     .custom-label {
         margin-top: 12px;
+    }
+    .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline{
+        margin-left: -5px !important
     }
 </style>
 

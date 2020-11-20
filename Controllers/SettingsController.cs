@@ -12,7 +12,7 @@
 
 using DotNetNuke.Web.Mvc.Framework.Controllers;
 using DotNetNuke.Collections;
-using System.Web.Mvc;
+//using System.Web.Mvc;
 using DotNetNuke.Security;
 using DotNetNuke.Web.Mvc.Framework.ActionFilters;
 using Newtonsoft.Json;
@@ -25,6 +25,11 @@ using System.Linq.Expressions;
 using System.Data.SqlClient;
 using System.Data.OleDb;
 using System.Data;
+using System.Linq;
+using System.Data.Entity;
+using ClientDependency.Core;
+//using System.Web.WebPages.Html;
+using System.Web.Mvc;
 
 namespace Christoc.Modules.Chart.Controllers
 {
@@ -44,9 +49,33 @@ namespace Christoc.Modules.Chart.Controllers
             //settings.Setting2 = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_Setting2", System.DateTime.Now);
             //settings.IdCity = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("Chart_IdCity", 1);
             var settingsChart = new Models.GetPerson();
-            ViewBag.Cities = ItemManager.Instance.Cities();
-            ViewBag.ListField = ItemManager.Instance.GetFields();
-            return View(settingsChart);
+            var getCities = ItemManager.Instance.Cities();
+            var selectCity = new List<SelectListItem>();
+            foreach (var element in getCities)
+            {
+                selectCity.Add(new SelectListItem
+                {
+                    Value = element.IdCity.ToString(),
+                    Text = element.CityName
+                });
+            }
+            SelectList selectCities = new SelectList(selectCity, "Value", "Text");
+            ViewBag.Cities = selectCities;
+
+            var getfield = ItemManager.Instance.GetFields();
+            var selectLists = new List<SelectListItem>();
+            foreach (var element in getfield)
+            {
+                selectLists.Add(new SelectListItem
+                {
+                    Value = element.name,
+                    Text = element.name
+                });
+            }
+            SelectList selectList = new SelectList(selectLists, "Value", "Text");
+            ViewBag.ListField = selectList;
+
+            return View();
         }
 
         [HttpGet]
@@ -74,16 +103,19 @@ namespace Christoc.Modules.Chart.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [DotNetNuke.Web.Mvc.Framework.ActionFilters.ValidateAntiForgeryToken]
-        public ActionResult Settings(Models.GetPerson settingsChart)
+        public ActionResult Settings(Models.GetPerson settingsChart, GetField getField, Settings settings)
         {
-            
+
             //ModuleContext.Configuration.ModuleSettings["Chart_Setting1"] = settings.Setting1.ToString();
             //ModuleContext.Configuration.ModuleSettings["Chart_Setting2"] = settings.Setting2.ToUniversalTime().ToString("u");
             ModuleContext.Configuration.ModuleSettings["Chart_TenY"] = settingsChart.TenY.ToString();
             ModuleContext.Configuration.ModuleSettings["Chart_TenX"] = settingsChart.TenX.ToString();
             ModuleContext.Configuration.ModuleSettings["Chart_TenBieuDo"] = settingsChart.TenBieuDo.ToString();
             ModuleContext.Configuration.ModuleSettings["Chart_MoTaBieuDo"] = settingsChart.MoTaBieuDo.ToString();
-            //ModuleContext.Configuration.ModuleSettings["Chart_TenY"] = settingsChart.TenY.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_SelectX"] = getField.name.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_SelectY"] = getField.name.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_SelectTopic"] = settingsChart.SelectTopic.ToString();
+            ModuleContext.Configuration.ModuleSettings["Chart_SelectType"] = settingsChart.SelectType.ToString();
 
             return RedirectToDefaultRoute();
         }
